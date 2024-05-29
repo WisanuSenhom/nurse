@@ -98,11 +98,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function checkLocalStorage() {
     // ตรวจสอบค่า uuid ใน local storage
-    var storedUUID = localStorage.getItem("userid");
+   // var storedUUID = localStorage.getItem("userid");
     var storedDOCID = localStorage.getItem("docno1");
 
     // ถ้าค่า uuid ไม่มีหรือเป็นค่าว่าง
-      if (!storedUUID || !storedDOCID || storedUUID.trim() === "" || storedDOCID.trim() === "") {
+      if ( !storedDOCID || storedDOCID.trim() === "") {
         // ไปหน้า login
         main();
     } else {
