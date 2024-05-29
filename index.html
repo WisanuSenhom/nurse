@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+        <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  
+    <title>งานพยาบาล | สสจ.บึงกาฬ</title>
+</head>
+
+<body>
+
+    <header>
+        <div id="particles"></div>
+        <div class="info-text">
+            <h1>กลุ่มงานพยาบาล</h1>
+            <h3>สำนักงานสาธารณสุขจังหวัดบึงกาฬ</h3>
+            <a href="#about" class="scroll"><i class='bx bxs-down-arrow'></i></a>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="header">
+            <h1>About Me</h1>
+            <!-- <a href="#">Hire Me</a> -->
+        </div>
+
+        <div class="card">
+            <img id ="yourpic" src="" alt="Avatar">
+            <div class="info">
+                <h1 id="iname">ชื่อ-สกุล</h1>
+                <p id="imore">
+                    รายละเอียด...
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="about">
+        <div class="header">
+            <h1>Nurse Data</h1>
+            <!-- <a href="#">Hire Me</a> -->
+        </div>
+
+        <!-- <div class="card"> -->
+          
+            <div class="info">
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm" id="userTable">
+                      <thead>
+                        <th>รหัส</th>
+                        <th>ชื่อ-สกุล</th>
+                       <th>อายุ(ปี)</th>
+                         <th>ตำแหน่ง</th>
+                       <th>สังกัด</th>
+                        <th>กลุ่มงาน/หน่วยงาน</th>
+                       <th>เลขที่ใบอนุญาตประกอบวิชาชีพ</th>
+                       <th>เลขที่สมาชิกสภาการพยาบาล</th>
+                       <th>วันหมดอายุ</th>
+                       <th>วันที่จบ</th>
+                       <th>วันที่เริ่มงาน</th>
+                       <th>เบอร์มือถือ</th>
+                       <th>อีเมล์</th>
+                       <th>วันที่ลงทะเบียน</th>
+                      </thead>
+                      <tbody id="tbody">
+                  </table>
+
+            <!-- </div> -->
+        </div>
+    </section>
+    
+
+
+    <button class="scroll-top" onclick="scrollToTop()">
+        <i class='bx bxs-up-arrow'></i>
+    </button>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Sweetalert -->
+  <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+ <!-- Datatable 5 
+ <link rel="stylesheet" href="" />
+<script type="text/javascript" src=""></script>
+<script type="text/javascript" src=""></script>
+ -->
+
+ <!-- Boostrap & fontawesome js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+ <!-- Datatable jquery -->
+ <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/dataTables.dataTables.min.js"></script>
+
+<!-- Datatable ป้อนอัตโนมัติ  -->
+ <!-- <link rel="stylesheet" href="https://cdn.datatables.net/autofill/2.6.0/css/autoFill.dataTables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/autofill/2.6.0/js/dataTables.autoFill.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/autofill/2.6.0/js/autoFill.dataTables.min.js"></script> -->
+
+<!-- Datatable ปุ่ม  -->
+ <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.dataTables.min.js"></script>
+<!-- การควบคุมการมองเห็นคอลัมน์: -->
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+<!-- ปุ่มพิมพ์: -->
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<!-- ปุ่มส่งออก HTML5: -->
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<!-- ปุ่มส่งออก exel -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> 
+
+
+
+<!-- Datatable ColReorder  -->
+ <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.7.0/css/colReorder.dataTables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/colreorder/1.7.0/js/dataTables.colReorder.min.js"></script>
+
+ <!-- Datatable แสดงผลตามขนาดหน้าจอ ปุ่มซ่อน -->
+ <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<!-- Datatable ส่วนหัวคงที่ -->
+ <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+
+</body>
+
+</html>
