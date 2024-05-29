@@ -102,7 +102,7 @@ async function checkLocalStorage() {
     var storedDOCID = localStorage.getItem("docno1");
 
     // ถ้าค่า uuid ไม่มีหรือเป็นค่าว่าง
-    if (!storedUUID && !storedDOCID  || storedUUID.trim() === "" && storedDOCID.trim() === "") {
+      if (!storedUUID || !storedDOCID || storedUUID.trim() === "" || storedDOCID.trim() === "") {
         // ไปหน้า login
         main();
     } else {
