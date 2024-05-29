@@ -162,7 +162,7 @@ async function checkLocalStorage() {
         // month = month < 10 ? '0' + month : month; // ใส่ 0 ด้านหน้าถ้าน้อยกว่า 10
 
         // const yyyymm = year.toString() + month.toString();
-        console.log(userid);
+      //  console.log(userid);
 
 
         const xurl = `https://script.google.com/macros/s/AKfycbzNOEtVw7sINayjzIRM7g1SZcmwEShXfcS993gkT63Zf5JjzE3sKtMVNtK1nQq8-TBR/exec?id=${userid}`;
@@ -293,7 +293,7 @@ async function getmember(yourid, yourpic) {
     let gas = `https://script.google.com/macros/s/AKfycbwzAc-k3OSgaWzc3lquqWR2GS9Vy5-UWow6y6mu6bGZk-YiPuN_D-53dk8TWhPmWFITcA/exec?id=${yourid}`;
     const records = await fetch(gas);
     const data = await records.json();
-    console.log(data.user);
+   // console.log(data.user);
     if (data.user === null || data.user === undefined || data.user == 0) {
         Swal.fire({
             confirmButtonColor: '#0ef',
