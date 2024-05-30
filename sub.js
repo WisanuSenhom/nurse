@@ -185,7 +185,7 @@ async function insertdata() {
   }
 
   let license = document.querySelector('#license').value;
-  if (license.length < 2) {
+  if (license.length < 1) {
     Swal.fire(
       "ผิดพลาด!",
       "โปรดกรอกเลขที่ใบอนุญาตประกอบวิชาชีพ!",
@@ -195,7 +195,7 @@ async function insertdata() {
   }
 
   let nlicense = document.querySelector('#nlicense').value;
-  if (nlicense.length < 2) {
+  if (nlicense.length < 1) {
     Swal.fire(
       "ผิดพลาด!",
       "โปรดกรอกเลขที่สมาชิกสภาการพยาบาล!",
