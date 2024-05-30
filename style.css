@@ -263,10 +263,24 @@ header .info-text .scroll::before {
 }
 
 
-#userTable,
+#userTable {
+  color: white;
+ }
+#userTable th, #userTable td {
+  color: white; /* Text color for table header and cells */
+}
+#userTable_filter label,
+#userTable_length label,
+#userTable_buttons label,
+#userTable_info,
+#userTable_paginate {
+  color: white; /* Text color for DataTable controls */
+}
+
 #userTable tbody,
 #userTable tbody tr,
 #userTable tbody tr td {
   color: white;
-  border: 1px solid white;
+  border: 1px solid rgb(84, 102, 119);
 }
+
