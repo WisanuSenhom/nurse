@@ -250,15 +250,18 @@ function loadAPI() {
 
 function openWeb() {
     Swal.fire({
-        title: 'ยืนยันการดำเนินการ',
-        text: 'คลิก "ตกลง" เพื่อเปิดหน้าบันทึกข้อมูล',
-        icon: 'question',
+        title: 'แสกนเพื่อลงทะเบียน',
+        text: 'คลิก "ตกลง" เพื่อเปิดหน้าบันทึกข้อมูล ท่านไม่สามารถบันทึกข้อมูลให้บุคคลอื่นได้ โปรดแชร์ลิงค์ให้เจ้าตัวกรอกข้อมูลด้วยตนเอง',
+        imageUrl: "https://lh5.googleusercontent.com/d/1ZJAYV6xaIwKxItF8ecFHWKCNZbwsrivr",
+        imageWidth: 300,
+        imageHeight: 300,
+        imageAlt: "Custom image",
         showCancelButton: true,
         confirmButtonText: 'ตกลง',
         cancelButtonText: 'ยกเลิก',
     }).then((result) => {
         if (result.isConfirmed) {
-            window.open('fire.html', '_blank');
+            window.open('register.html', '_blank');
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire('การดำเนินการถูกยกเลิก', '', 'info');
         }
