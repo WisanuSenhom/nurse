@@ -266,28 +266,41 @@ async function insertdata() {
   if (job.length < 2) {
     Swal.fire(
       "ผิดพลาด!",
-      "โปรดกรอกตำแหน่ง!",
+      "โปรดเลือกข้อมูล!",
       "error"
     );
     return;
   }
 
-
-
   let category = document.querySelector('#category').value;
+  let latitude = document.querySelector('#latitude').value;
+  if (category === 'อื่นๆ' && latitude.length < 2 ) {
+    Swal.fire(
+      "ผิดพลาด!",
+      "โปรดเลือกข้อมูล!",
+      "error"
+    );
+    return;
+  }
 
   let subcategory = document.querySelector('#subcategory').value;
+
   let username = document.querySelector('#username').value;
   let userid = document.querySelector('#userid').value;
   let userimg = document.querySelector('#userimg').value;
   let useros = document.querySelector('#useros').value;
-  let latitude = document.querySelector('#latitude').value;
+
+
   let longitude = document.querySelector('#longitude').value;
   let db1 = document.querySelector('#db1').value;
 
   let db3 = document.querySelector('#db3').value;
   let maincode = document.querySelector('#maincode').value;
   let subcode = document.querySelector('#subcode').value;
+
+  
+
+
 
 let message = `
 สังกัด : ${category} 
