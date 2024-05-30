@@ -113,6 +113,7 @@ async function checkLocalStorage() {
         Swal.fire({
             title: "กำลังดาวน์โหลด...",
             html: 'เวลา <b>0</b> วินาที',
+            position: "top-start",
             timerProgressBar: true,
             didOpen: () => {
                 // เพิ่มดีเลย์เล็กน้อยเพื่อให้แน่ใจว่า HTML ของ Swal ถูกเรนเดอร์เรียบร้อยแล้ว
