@@ -289,7 +289,6 @@ async function getProfile() {
 }
 
 async function getmember(yourid, yourpic) {
-    localStorage.clear();
     // showLoading();
     let gas = `https://script.google.com/macros/s/AKfycbwzAc-k3OSgaWzc3lquqWR2GS9Vy5-UWow6y6mu6bGZk-YiPuN_D-53dk8TWhPmWFITcA/exec?id=${yourid}`;
     const records = await fetch(gas);
