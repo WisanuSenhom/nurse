@@ -277,7 +277,7 @@ async function insertdata() {
   if (category === 'อื่นๆ' && latitude.length < 2 ) {
     Swal.fire(
       "ผิดพลาด!",
-      "โปรดเลือกข้อมูล!",
+      "โปรดระบุเพิ่มเติม!",
       "error"
     );
     return;
