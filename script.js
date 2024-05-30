@@ -175,10 +175,11 @@ async function checkLocalStorage() {
         data.user.forEach(function (user) {
 
             tab += `<tr>
-        <td>${user.id}</td>
+       <td>${user.id}</td>
         <td>${user.name}</td>
         <td>${user.age}</td>
         <td>${user.job}</td>
+        <td>${user.work}</td>
         <td>${user.main}</td>
         <td>${user.sub}</td>
         <td>${user.docno1}</td>
@@ -187,7 +188,8 @@ async function checkLocalStorage() {
         <td>${user.docdate2}</td>
         <td>${user.docdate3}</td>
         <td>${user.tel}</td>   
-        <td>${user.mail}</td>    
+        <td>${user.mail}</td> 
+        <td>${user.note}</td>     
         <td>${user.dupdate}</td>     
 
          </tr>`
@@ -201,6 +203,7 @@ async function checkLocalStorage() {
                 { "data": 'name' },
                 { "data": 'age' },
                 { "data": 'job' },
+                { "data": 'work' },
                 { "data": 'main' },
                 { "data": 'sub' },
                 { "data": 'docno1' },
@@ -210,6 +213,7 @@ async function checkLocalStorage() {
                 { "data": 'docdate3' },
                 { "data": 'tel' },
                 { "data": 'mail' },
+                { "data": 'note' },
                 { "data": 'dupdate' }
             ],
             "processing": true,
