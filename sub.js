@@ -103,7 +103,7 @@ async function getProfile() {
 
 // line 1654797991-jdAEKaEl
 async function main() {
-  await liff.init({ liffId: "1654797991-AzLnmKne" })
+  await liff.init({ liffId: "1654797991-jdAEKaEl" })
   if (liff.isLoggedIn()) {
     getProfile()
   } else {
