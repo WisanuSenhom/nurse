@@ -338,7 +338,7 @@ async function getmember(yourid, yourpic) {
                 confirmButtonColor: '#0ef',
                 icon: 'success',
                 title: 'ลงชื่อเข้าใช้สำเร็จแล้ว',
-
+position: "top-start",
             }).then((result) => {
                 // ตรวจสอบว่าผู้ใช้กดปุ่มตกลงหรือไม่
                 if (result.isConfirmed) {
