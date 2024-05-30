@@ -218,7 +218,7 @@ async function checkLocalStorage() {
             ],
             "processing": true,
             "responsive": true,
-            "order": [[13, 'asc'],[4, 'asc'], [5, 'asc']],
+           "order": [[5, 'asc'], [6, 'asc'],[4, 'asc']],
             "dom": 'lBfrtip',
             "lengthMenu": [[10, 30, 70, 100, 150, 200, -1], [10, 30, 70, 100, 150, 200, "ทั้งหมด"]],
             "buttons": [
