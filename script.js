@@ -91,10 +91,10 @@ window.addEventListener('scroll', function () {
 
 
 // ตรวจสอบข้อมูล
-document.addEventListener("DOMContentLoaded", function () {
-    // เมื่อหน้าเว็บโหลดเสร็จ
+window.onload = function() {
+    // เมื่อหน้าเว็บโหลดเสร็จสมบูรณ์
     checkLocalStorage();
-});
+};
 
 async function checkLocalStorage() {
     // ตรวจสอบค่า uuid ใน local storage
