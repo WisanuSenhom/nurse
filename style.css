@@ -284,3 +284,14 @@ header .info-text .scroll::before {
   border: 1px solid rgb(84, 102, 119);
 }
 
+.dt-button {
+  color: white !important;
+  background-color: transparent !important; /* คุณสามารถเปลี่ยนสีพื้นหลังได้ตามต้องการ */
+}
+
+
+.dataTables_length select {
+  background-color: #30427e !important; /* เปลี่ยนสีพื้นหลังของ select ภายใน lengthMenu เป็นสีเทา */
+  color: white !important; /* คุณสามารถเปลี่ยนสีตัวหนังสือของ select ภายใน lengthMenu ได้ตามต้องการ */
+}
+
