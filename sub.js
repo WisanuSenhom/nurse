@@ -63,10 +63,10 @@ await  fetch(`https://script.google.com/macros/s/AKfycbxRMzDKnw3HwBzYZxxKUiRSQKY
     .then(response => response.json())
     .then(data => {
   // ลบค่าเก่าใน dropdown ของ subcategory
-  document.querySelector('#latitude').innerHTML = "";
-  document.querySelector('#longitude').innerHTML = "";
+  // document.querySelector('#latitude').innerHTML = "";
+  // document.querySelector('#longitude').innerHTML = "";
   document.querySelector('#db1').innerHTML = "";
-  document.querySelector('#db2').innerHTML = "";
+  // document.querySelector('#db2').innerHTML = "";
   document.querySelector('#db3').innerHTML = "";
   document.querySelector('#maincode').innerHTML = "";
   document.querySelector('#subcode').innerHTML = "";
@@ -74,10 +74,10 @@ await  fetch(`https://script.google.com/macros/s/AKfycbxRMzDKnw3HwBzYZxxKUiRSQKY
       // เพิ่ม option สำหรับแต่ละ subcategory
       data.datas.forEach(subdatas => {
     
-        document.querySelector('#latitude').value = subdatas.lat;
-        document.querySelector('#longitude').value = subdatas.long;
+        // document.querySelector('#latitude').value = subdatas.lat;
+        // document.querySelector('#longitude').value = subdatas.long;
         document.querySelector('#db1').value = subdatas.db1;
-        document.querySelector('#db2').value = subdatas.db2;
+        // document.querySelector('#db2').value = subdatas.db2;
         document.querySelector('#db3').value = subdatas.db3;
         document.querySelector('#maincode').value = subdatas.maincode;
         document.querySelector('#subcode').value = subdatas.subcode;
@@ -101,9 +101,9 @@ async function getProfile() {
 
 }
 
-// line
+// line 1654797991-jdAEKaEl
 async function main() {
-  await liff.init({ liffId: "1654797991-jdAEKaEl" })
+  await liff.init({ liffId: "1654797991-AzLnmKne" })
   if (liff.isLoggedIn()) {
     getProfile()
   } else {
@@ -245,6 +245,7 @@ async function insertdata() {
   }
 
   let email = document.querySelector('#email').value;
+  
 
   // Regular expression for basic email validation
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -261,6 +262,16 @@ async function insertdata() {
     return;
   }
 
+  let db2 = document.querySelector('#db2').value;
+  if (job.length < 2) {
+    Swal.fire(
+      "ผิดพลาด!",
+      "โปรดกรอกตำแหน่ง!",
+      "error"
+    );
+    return;
+  }
+
 
 
   let category = document.querySelector('#category').value;
@@ -273,7 +284,7 @@ async function insertdata() {
   let latitude = document.querySelector('#latitude').value;
   let longitude = document.querySelector('#longitude').value;
   let db1 = document.querySelector('#db1').value;
-  let db2 = document.querySelector('#db2').value;
+
   let db3 = document.querySelector('#db3').value;
   let maincode = document.querySelector('#maincode').value;
   let subcode = document.querySelector('#subcode').value;
