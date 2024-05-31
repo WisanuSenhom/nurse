@@ -159,7 +159,7 @@ header .info-text .scroll::before {
   justify-content: center;
 }
 
-#about .card .info h1,
+#about .card .info h1 ,
 #features .card .info h1 {
   margin-bottom: 20px;
   color: #fff;
@@ -235,7 +235,7 @@ header .info-text .scroll::before {
   header .info-text h3 {
     font-size: 1.1rem;
   }
-
+  
   #about .card {
     flex-direction: column;
     align-items: center;
@@ -245,21 +245,23 @@ header .info-text .scroll::before {
     max-width: 150px;
     max-height: 150px;
   }
+  
+}
 
-  .swal2-popup {
-    width: auto !important;
-    max-width: 90% !important;
-    font-size: 1rem !important;
-  }
-  .swal2-title {
-    font-size: 1.5rem !important;
-  }
-  .swal2-content {
-    font-size: 1rem !important;
-  }
-  .swal2-confirm {
-    font-size: 1rem !important;
-  }
+.table-wrapper {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid rgb(84, 102, 119);
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background-color: transparent;
 }
 
 
