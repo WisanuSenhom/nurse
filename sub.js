@@ -113,6 +113,17 @@ async function main() {
 main()
 
 async function insertdata() {
+  
+  let category = document.querySelector('#category').value;
+  if (category.length < 2 || category === 'สังกัด' ) {
+    Swal.fire(
+      "ผิดพลาด!",
+      "โปรดเลือกหน่วยงาน!",
+      "error"
+    );
+    return;
+  }
+
   let ucid = document.querySelector('#cid').value;
   // ตรวจสอบความยาวของรหัส PIN
   if (ucid.length !== 13) {
@@ -174,6 +185,16 @@ async function insertdata() {
     return;
   }
 
+  let db2 = document.querySelector('#db2').value;
+  if (db2.length < 2) {
+    Swal.fire(
+      "ผิดพลาด!",
+      "โปรดเลือกข้อมูลสถานะงาน!",
+      "error"
+    );
+    return;
+  }
+  
   let birthday = document.querySelector('#birthday').value;
   if (birthday.length < 2) {
     Swal.fire(
@@ -262,22 +283,12 @@ async function insertdata() {
     return;
   }
 
-  let db2 = document.querySelector('#db2').value;
-  if (job.length < 2) {
-    Swal.fire(
-      "ผิดพลาด!",
-      "โปรดเลือกข้อมูล!",
-      "error"
-    );
-    return;
-  }
 
-  let category = document.querySelector('#category').value;
   let latitude = document.querySelector('#latitude').value;
   if (category === 'อื่นๆ' && latitude.length < 2 ) {
     Swal.fire(
       "ผิดพลาด!",
-      "โปรดระบุเพิ่มเติม!",
+      "โปรดระบุชื่อหน่วยงานหรือบันทึกเพิ่มเติม!",
       "error"
     );
     return;
@@ -299,21 +310,27 @@ async function insertdata() {
   let subcode = document.querySelector('#subcode').value;
 
   
-
-
-
 let message = `
-สังกัด : ${category} 
-หน่วยงาน/กลุ่มงาน : ${subcategory} 
-
-ชื่อ - สกุล : ${pname}${fname} ${lname} 
-ตำแหน่ง : ${job} 
-
+สังกัด : ${category} <br>
+หน่วยงาน/กลุ่มงาน : ${subcategory} <br>
+เลขบัตร(เข้ารหัสแล้ว) : ${hash_cid} <br>
+ชื่อ - สกุล : ${pname}${fname} ${lname} <br>
+ตำแหน่ง : ${job} / ${db2} <br>
+เกิด : ${birthday} <br>
+เลขใบประกอบ : ${license} <br>
+เลขสภา : ${nlicense} <br>
+หมดอายุ : ${dlicense} <br>
+จบ : ${dend} <br>
+เริ่มงาน : ${djob} <br>
+มือถือ : ${tel} <br>
+เมล์ : ${email} <br>
+เพิ่มเติม : ${latitude} <br>
+--หมายเหตุ : ระบบจะรับค่าวันที่เป็นปี ค.ศ.--
 `;
       
 Swal.fire({
   title: 'โปรดตรวจสอบความถูกต้อง',
-  text: message,
+  html: message,
   icon: 'info',
   showCancelButton: true,
   confirmButtonText: 'ยืนยัน',
