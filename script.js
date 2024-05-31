@@ -201,15 +201,80 @@ async function checkLocalStorage() {
             "lengthMenu": [[10, 30, 70, 100, 150, 200, -1], [10, 30, 70, 100, 150, 200, "ทั้งหมด"]],
             "buttons": [
                 'excel', 'print',
+                {
+                    text: 'แก้ไข',
+                    action: async function () {
+                        var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
+        
+                        if (selectedRows.length > 0) {
+                            var selectData = selectedRows[0];
+        
+                            // Populate the form with the initial values
+                            $('#editId').val(selectData.id);
+                            $('#editName').val(selectData.name);
+                            $('#editAge').val(selectData.age);
+                            $('#editJob').val(selectData.job);
+                            $('#editWork').val(selectData.work);
+                            $('#editMain').val(selectData.main);
+                            $('#editSub').val(selectData.sub);
+                            $('#editDocno1').val(selectData.docno1);
+                            $('#editDocno2').val(selectData.docno2);
+                            $('#editDocdate1').val(selectData.docdate1);
+                            $('#editDocdate2').val(selectData.docdate2);
+                            $('#editDocdate3').val(selectData.docdate3);
+                            $('#editTel').val(selectData.tel);
+                            $('#editMail').val(selectData.mail);
+                            $('#editNote').val(selectData.note);
+                            $('#editDupdate').val(selectData.dupdate);
+        
+                            // Show the modal
+                            $('#editModal').modal('show');
+                            
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "No row selected!"
+                            });
+                        }
+                    }
+                }
             ],
             "pageLength": 100,
             "language": {
                 "url": 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/th.json'
             },
-            // "search": {
-            //     "search": yyyymm
-            // }
+            "select": true
         });
+        
+        // Save changes handler
+        $('#saveChanges').on('click', function() {
+            var formData = $('#editForm').serializeArray();
+            var updatedData = {};
+            formData.forEach(function(item) {
+                updatedData[item.name] = item.value;
+            });
+        
+            // TODO: Implement the logic to save the updatedData
+            console.log(updatedData);
+
+            Swal.fire({
+                title: 'ไม่สามารถแก้ไขได้',
+                text: 'ขออภัยในความไม่สะดวก ระบบยังไม่เปิดให้แก้ไขข้อมูล',
+                icon: 'warning',
+                confirmButtonText: 'ตกลง'
+            });
+        
+            // Hide the modal after saving changes
+            $('#editModal').modal('hide');
+        
+            // Optionally, update the DataTable with the new data
+            var table = $('#userTable').DataTable();
+            var selectedRowIndex = table.row({ selected: true }).index();
+            table.row(selectedRowIndex).data(updatedData).draw();
+        });
+        
+        
 
         loadAPI()
     }
@@ -384,10 +449,10 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data.cc && data.cc.length > 0) {
                 // Assuming the server response has a property named 'cc' and each item has 'total'
                 var timelineData = data.cc.map(item => `${item.total}`).join(', ');
-               // console.log(timelineData);
+                // console.log(timelineData);
                 var sumdatt = data.cc.map(item => item.cnumber); // ดึงค่า cnumber ออกมาจากทุกๆ item ในอาร์เรย์ cc
                 var totalSum = sumdatt.reduce((accumulator, currentValue) => accumulator + currentValue, 0); // รวมค่าทั้งหมดในอาร์เรย์ sumdatt
-             //   console.log(totalSum - 1); // แสดงผลรวมทั้งหมด
+                //   console.log(totalSum - 1); // แสดงผลรวมทั้งหมด
                 // Set the text content of the element with the fetched data
                 utimelineElement.innerText = timelineData;
                 sumdataElement.innerText = `จำนวนผู้ลงทะเบียน ${totalSum - 1} คน`;
@@ -408,7 +473,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // line 1654797991-oDWLGzLM
 async function main() {
     // hideLoading() ;  
-    await liff.init({ liffId: "1654797991-oDWLGzLM" })
+    await liff.init({ liffId: "1654797991-AzLnmKne" })
     if (liff.isLoggedIn()) {
         getProfile();
     } else {
