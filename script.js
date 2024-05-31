@@ -90,58 +90,46 @@ window.addEventListener('scroll', function () {
 });
 
 
-// ตรวจสอบข้อมูล
-window.onload = function() {
+// ตรวจสอบข้อมูล เ
+
+window.onload = function () {
     // เมื่อหน้าเว็บโหลดเสร็จสมบูรณ์
     checkLocalStorage();
 };
 
 async function checkLocalStorage() {
     // ตรวจสอบค่า uuid ใน local storage
-   // var storedUUID = localStorage.getItem("userid");
+    // var storedUUID = localStorage.getItem("userid");
     var storedDOCID = localStorage.getItem("docno1");
 
     // ถ้าค่า uuid ไม่มีหรือเป็นค่าว่าง
-      if ( !storedDOCID || storedDOCID.trim() === "") {
+    if (!storedDOCID || storedDOCID.trim() === "") {
         // ไปหน้า login
         main();
     } else {
 
         let timerInterval;
-        let startTime;
-
         Swal.fire({
-            title: "กำลังดาวน์โหลด...",
-            html: 'เวลา <b>0</b> วินาที',
-            position: "top-start",
+            title: "กำลังโหลดข้อมูล!",
+            html: "I will close in <b></b> milliseconds.",
+            timer: 5000,
             timerProgressBar: true,
             didOpen: () => {
-                // เพิ่มดีเลย์เล็กน้อยเพื่อให้แน่ใจว่า HTML ของ Swal ถูกเรนเดอร์เรียบร้อยแล้ว
-                setTimeout(() => {
-                    const container = Swal.getHtmlContainer();
-                    const timer = container.querySelector("b");
-                    if (timer) {
-                        startTime = Date.now();
-                        Swal.showLoading();
-                        timerInterval = setInterval(() => {
-                            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-                            timer.textContent = elapsedTime;
-                        }, 100);
-                    } else {
-                        console.error("ไม่พบแท็ก <b> ใน HTML ของ Swal");
-                    }
-                }, 100); // ดีเลย์ 100 มิลลิวินาที
+                Swal.showLoading();
+                const timer = Swal.getPopup().querySelector("b");
+                timerInterval = setInterval(() => {
+                    timer.textContent = `${Swal.getTimerLeft()}`;
+                }, 100);
             },
             willClose: () => {
                 clearInterval(timerInterval);
             }
         }).then((result) => {
+            /* Read more about handling dismissals below */
             if (result.dismiss === Swal.DismissReason.timer) {
                 console.log("I was closed by the timer");
             }
         });
-
-
 
 
         var userid = localStorage.getItem("userid");
@@ -154,16 +142,6 @@ async function checkLocalStorage() {
         document.querySelector('#iname').innerText = localStorage.getItem("name") + " " + localStorage.getItem("job");
 
         document.querySelector('#imore').innerText = "ปฏิบัติงานที่ : " + localStorage.getItem("office") + " สังกัด " + localStorage.getItem("mainsub") + "\nเลขที่ใบประกอบ : " + localStorage.getItem("docno1") + "\nหมดอายุวันที่ : " + localStorage.getItem("expdate");
-
-
-        // เดือนปัจจุบัน
-        // const currentDate = new Date();
-        // const year = currentDate.getFullYear();
-        // let month = currentDate.getMonth() + 1; // เพิ่ม 1 เนื่องจากเดือนเริ่มที่ 0
-        // month = month < 10 ? '0' + month : month; // ใส่ 0 ด้านหน้าถ้าน้อยกว่า 10
-
-        // const yyyymm = year.toString() + month.toString();
-      //  console.log(userid);
 
 
         const xurl = `https://script.google.com/macros/s/AKfycbzNOEtVw7sINayjzIRM7g1SZcmwEShXfcS993gkT63Zf5JjzE3sKtMVNtK1nQq8-TBR/exec?id=${userid}`;
@@ -218,7 +196,7 @@ async function checkLocalStorage() {
             ],
             "processing": true,
             "responsive": true,
-           "order": [[5, 'asc'], [6, 'asc'],[4, 'asc']],
+            "order": [[5, 'asc'], [6, 'asc'], [4, 'asc']],
             "dom": 'lBfrtip',
             "lengthMenu": [[10, 30, 70, 100, 150, 200, -1], [10, 30, 70, 100, 150, 200, "ทั้งหมด"]],
             "buttons": [
@@ -244,7 +222,7 @@ function loadAPI() {
         icon: "success",
         title: "ดาวน์โหลดสำเร็จ",
         showConfirmButton: false,
-        timer: 3000
+        timer: 2500
     });
 }
 
@@ -262,28 +240,32 @@ function openWeb() {
     }).then((result) => {
         if (result.isConfirmed) {
             window.open('register.html', '_blank');
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire('การดำเนินการถูกยกเลิก', '', 'info');
         }
     });
 }
 
-// ดับเพลิง
+// แดชบอร์ด
 function opendash() {
     Swal.fire({
-        title: 'ยืนยันการดำเนินการ',
-        text: 'คลิก "ตกลง" เพื่อเปิดหน้าแสดงข้อมูล',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'ตกลง',
-        cancelButtonText: 'ยกเลิก',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.open('https://lookerstudio.google.com/reporting/59437449-657d-4dbb-9297-a2e63b2204ae', '_blank');
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire('การดำเนินการถูกยกเลิก', '', 'info');
-        }
+        title: 'อยู่ในระหว่างการพัฒนา',
+        text: 'ระบบกำลังอยู่ในระหว่างการพัฒนา',
+        icon: 'info',
+        confirmButtonText: 'ตกลง'
     });
+    // Swal.fire({
+    //     title: 'ยืนยันการดำเนินการ',
+    //     text: 'คลิก "ตกลง" เพื่อเปิดหน้าแสดงข้อมูล',
+    //     icon: 'question',
+    //     showCancelButton: true,
+    //     confirmButtonText: 'ตกลง',
+    //     cancelButtonText: 'ยกเลิก',
+    // }).then((result) => {
+    //     if (result.isConfirmed) {
+    //         window.open('https://lookerstudio.google.com/reporting/59437449-657d-4dbb-9297-a2e63b2204ae', '_blank');
+    //     } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //         Swal.fire('การดำเนินการถูกยกเลิก', '', 'info');
+    //     }
+    // });
 }
 
 
@@ -300,7 +282,7 @@ async function getmember(yourid, yourpic) {
     let gas = `https://script.google.com/macros/s/AKfycbwzAc-k3OSgaWzc3lquqWR2GS9Vy5-UWow6y6mu6bGZk-YiPuN_D-53dk8TWhPmWFITcA/exec?id=${yourid}`;
     const records = await fetch(gas);
     const data = await records.json();
-   // console.log(data.user);
+    // console.log(data.user);
     if (data.user === null || data.user === undefined || data.user == 0) {
         Swal.fire({
             confirmButtonColor: '#0ef',
@@ -344,8 +326,7 @@ async function getmember(yourid, yourpic) {
             Swal.fire({
                 confirmButtonColor: '#0ef',
                 icon: 'success',
-                title: 'ลงชื่อเข้าใช้สำเร็จแล้ว',
-position: "top-start",
+                title: 'ลงชื่อเข้าใช้สำเร็จแล้ว'
             }).then((result) => {
                 // ตรวจสอบว่าผู้ใช้กดปุ่มตกลงหรือไม่
                 if (result.isConfirmed) {
@@ -362,26 +343,69 @@ position: "top-start",
 
 function clearLocal() {
     // เรียกใช้ localStorage.clear() เพื่อลบข้อมูลทั้งหมดใน Local Storage
-    localStorage.clear();
-
     Swal.fire({
-        confirmButtonColor: '#0ef',
-        icon: 'success',
-        title: 'Local Storage has been cleared.'
-    })
+        title: 'ยืนยันการดำเนินการ',
+        text: 'กด "ตกลง" เพื่อดำเนินการ รีเช็ต เพื่อรับค่าใหม่',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'ตกลง',
+        cancelButtonText: 'ยกเลิก',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            localStorage.clear();
+            Swal.fire({
+                confirmButtonColor: '#0ef',
+                icon: 'success',
+                title: 'รีเซ็ตข้อมูลสำเร็จ'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire('การดำเนินการถูกยกเลิก', '', 'info');
+        }
+    });
 }
 
-// function showLoading() {
-//   var overlay = document.getElementById('loadingOverlay');
-//   overlay.style.display = 'flex';
-// }
+// แดชบอร์ด
+document.addEventListener("DOMContentLoaded", function () {
+    // Define the API endpoint
+    var gas = 'https://script.google.com/macros/s/AKfycbw38l4dx3_L-ljv1NRMBC-yqx3OXdscgatTSTJly3crOUAYGrM8n2CkJObLbtgNjeCaHA/exec';
 
-// function hideLoading() {
-//   var overlay = document.getElementById('loadingOverlay');
-//   overlay.style.display = 'none';
-// }
+    // Select the element with id "utimeline"
+    var utimelineElement = document.getElementById("utimeline");
+    var sumdataElement = document.getElementById("sumdata");
+
+    // Fetch data from the server
+    fetch(gas)
+        .then(response => response.json())
+        .then(data => {
+            if (data.cc && data.cc.length > 0) {
+                // Assuming the server response has a property named 'cc' and each item has 'total'
+                var timelineData = data.cc.map(item => `${item.total}`).join(', ');
+               // console.log(timelineData);
+                var sumdatt = data.cc.map(item => item.cnumber); // ดึงค่า cnumber ออกมาจากทุกๆ item ในอาร์เรย์ cc
+                var totalSum = sumdatt.reduce((accumulator, currentValue) => accumulator + currentValue, 0); // รวมค่าทั้งหมดในอาร์เรย์ sumdatt
+             //   console.log(totalSum - 1); // แสดงผลรวมทั้งหมด
+                // Set the text content of the element with the fetched data
+                utimelineElement.innerText = timelineData;
+                sumdataElement.innerText = `จำนวนผู้ลงทะเบียน ${totalSum - 1} คน`;
+            } else {
+                var timelineData = `ผิดพลาด!`;
+                utimelineElement.innerText = timelineData;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Handle fetch errors here
+        });
+});
 
 
+
+
+// line 1654797991-oDWLGzLM
 async function main() {
     // hideLoading() ;  
     await liff.init({ liffId: "1654797991-oDWLGzLM" })
@@ -391,3 +415,4 @@ async function main() {
         liff.login()
     }
 }
+
