@@ -473,7 +473,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // line 1654797991-oDWLGzLM
 async function main() {
     // hideLoading() ;  
-    await liff.init({ liffId: "1654797991-AzLnmKne" })
+    await liff.init({ liffId: "1654797991-oDWLGzLM" })
     if (liff.isLoggedIn()) {
         getProfile();
     } else {
