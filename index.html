@@ -16,6 +16,8 @@
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"
         integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" crossorigin="anonymous"></script>
 
+        
+
     <title>สภาการพยาบาลจังหวัดบึงกาฬ | สสจ.บึงกาฬ</title>
 </head>
 
@@ -125,11 +127,97 @@
         </div>
     </section>
 
-
-
+ 
     <button class="scroll-top" onclick="scrollToTop()">
         <i class='bx bxs-up-arrow'></i>
     </button>
+
+ <!-- Edit Modal -->
+ <div id="editModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit User</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <div class="form-group">
+                        <label for="editId">ID</label>
+                        <input type="text" class="form-control" id="editId" name="id" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="editName">Name</label>
+                        <input type="text" class="form-control" id="editName" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="editAge">Age</label>
+                        <input type="number" class="form-control" id="editAge" name="age">
+                    </div>
+                    <div class="form-group">
+                        <label for="editJob">Job</label>
+                        <input type="text" class="form-control" id="editJob" name="job">
+                    </div>
+                    <div class="form-group">
+                        <label for="editWork">Work</label>
+                        <input type="text" class="form-control" id="editWork" name="work">
+                    </div>
+                    <div class="form-group">
+                        <label for="editMain">Main</label>
+                        <input type="text" class="form-control" id="editMain" name="main">
+                    </div>
+                    <div class="form-group">
+                        <label for="editSub">Sub</label>
+                        <input type="text" class="form-control" id="editSub" name="sub">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDocno1">Doc No1</label>
+                        <input type="text" class="form-control" id="editDocno1" name="docno1">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDocno2">Doc No2</label>
+                        <input type="text" class="form-control" id="editDocno2" name="docno2">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDocdate1">Doc Date1</label>
+                        <input type="date" class="form-control" id="editDocdate1" name="docdate1">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDocdate2">Doc Date2</label>
+                        <input type="date" class="form-control" id="editDocdate2" name="docdate2">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDocdate3">Doc Date3</label>
+                        <input type="date" class="form-control" id="editDocdate3" name="docdate3">
+                    </div>
+                    <div class="form-group">
+                        <label for="editTel">Tel</label>
+                        <input type="text" class="form-control" id="editTel" name="tel">
+                    </div>
+                    <div class="form-group">
+                        <label for="editMail">Mail</label>
+                        <input type="email" class="form-control" id="editMail" name="mail">
+                    </div>
+                    <div class="form-group">
+                        <label for="editNote">Note</label>
+                        <input type="text" class="form-control" id="editNote" name="note">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDupdate">Dupdate</label>
+                        <input type="text" class="form-control" id="editDupdate" name="dupdate">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close" data-dismiss="modal">ปิด</button>
+                <button type="button" class="btn btn-save" id="saveChanges">แก้ไข</button>
+            </div>
+        </div>
+    </div>
+</div>  
+
 
 
 
