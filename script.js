@@ -141,7 +141,7 @@ async function checkLocalStorage() {
         //อักษร
         document.querySelector('#iname').innerText = localStorage.getItem("name") + " " + localStorage.getItem("job");
 
-        document.querySelector('#imore').innerText = "ปฏิบัติงานที่ : " + localStorage.getItem("office") + " สังกัด " + localStorage.getItem("mainsub") + "\nเลขที่ใบประกอบ : " + localStorage.getItem("docno1") + "\nหมดอายุวันที่ : " + localStorage.getItem("expdate");
+        document.querySelector('#imore').innerText = "ปฏิบัติงานที่ : " + localStorage.getItem("office") + " สังกัด " + localStorage.getItem("mainsub") + "\nเลขที่ใบประกอบ : " + localStorage.getItem("docno1") + "\nหมดอายุ : " + localStorage.getItem("expdate");
 
 
         const xurl = `https://script.google.com/macros/s/AKfycbzNOEtVw7sINayjzIRM7g1SZcmwEShXfcS993gkT63Zf5JjzE3sKtMVNtK1nQq8-TBR/exec?id=${userid}`;
