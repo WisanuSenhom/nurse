@@ -1,11 +1,11 @@
-document.addEventListener("DOMContentLoaded",async function () {
-      Swal.fire({
-        icon: "info",
-        title: "คำชี้แจง",
-        text: "เลขบัตรประจำตัวประชาชนมีการเข้ารหัสที่ไม่สามารถถอดได้ เพื่อใช้ในการยื่นยันตัวตนบุคคล ในกรณีใช้มากกว่า 1 ไอดี"
-      });
+document.addEventListener("DOMContentLoaded", async function () {
+  Swal.fire({
+    icon: "info",
+    title: "คำชี้แจง",
+    text: "เลขบัตรประจำตัวประชาชนมีการเข้ารหัสที่ไม่สามารถถอดได้ เพื่อใช้ในการยื่นยันตัวตนบุคคล ในกรณีใช้มากกว่า 1 ไอดี"
+  });
   // เมื่อหน้าเว็บโหลดเสร็จ, ดึงข้อมูล category และใส่ใน dropdown
- await fetch("https://script.google.com/macros/s/AKfycbxqDazVhojy3PDLD2asS6Dp2dh-5zqiE9SVJr15BBh2nddc00ehKQNTC7_H1KXM6EhJFA/exec")
+  await fetch("https://script.google.com/macros/s/AKfycbxqDazVhojy3PDLD2asS6Dp2dh-5zqiE9SVJr15BBh2nddc00ehKQNTC7_H1KXM6EhJFA/exec")
     .then(response => response.json())
     .then(data => {
       const categoryDropdown = document.getElementById("category");
@@ -33,7 +33,7 @@ async function loadSubcategories() {
   // console.log(selectedCategoryId);
 
   // ดึงข้อมูล subcategories จาก API โดยใช้ selectedCategoryId
- await fetch(`https://script.google.com/macros/s/AKfycbwYUMzfkbM_B2fdgoGaJ7QKx_ACzg7cr0jn8I_x9yJdqHyWLurD_4IE5uX9tu_DW98/exec?categories=${selectedCategoryId}`)
+  await fetch(`https://script.google.com/macros/s/AKfycbwYUMzfkbM_B2fdgoGaJ7QKx_ACzg7cr0jn8I_x9yJdqHyWLurD_4IE5uX9tu_DW98/exec?categories=${selectedCategoryId}`)
     .then(response => response.json())
     .then(data => {
       // ลบค่าเก่าใน dropdown ของ subcategory
@@ -52,36 +52,39 @@ async function loadSubcategories() {
 }
 
 async function loadSubdatas() {
+  const categoryDropdowns = document.getElementById("category");
   const subcategoryDropdowns = document.getElementById("subcategory");
- 
+
 
   // ดึงค่าที่ถูกเลือกใน dropdown ของ category
+  const selecteddatax = categoryDropdowns.value;
   const selecteddatas = subcategoryDropdowns.value;
- // console.log(selecteddatas);
+  // https://script.google.com/macros/s/AKfycbxl6u1AXit5xEiSFk7lYOeGnruAE7DER2whjtmzTDcGu6Q6Foc-9zCYMrRmZDp4Ksb4/exec?mainname=${category}&subname=${subcategory}
   // ดึงข้อมูล subcategories จาก API โดยใช้ selectedCategoryId
-await  fetch(`https://script.google.com/macros/s/AKfycbxRMzDKnw3HwBzYZxxKUiRSQKYIUWhi6Le9-cY09zdgZ1uE1HUMkntKRkATNT8INBu3/exec?datas=${selecteddatas}`)
+  // await  fetch(`https://script.google.com/macros/s/AKfycbxRMzDKnw3HwBzYZxxKUiRSQKYIUWhi6Le9-cY09zdgZ1uE1HUMkntKRkATNT8INBu3/exec?datas=${selecteddatas}`)
+  await fetch(`https://script.google.com/macros/s/AKfycbxl6u1AXit5xEiSFk7lYOeGnruAE7DER2whjtmzTDcGu6Q6Foc-9zCYMrRmZDp4Ksb4/exec?mainname=${selecteddatax}&subname=${selecteddatas}`)
     .then(response => response.json())
     .then(data => {
-  // ลบค่าเก่าใน dropdown ของ subcategory
-  // document.querySelector('#latitude').innerHTML = "";
-  // document.querySelector('#longitude').innerHTML = "";
-  document.querySelector('#db1').innerHTML = "";
-  // document.querySelector('#db2').innerHTML = "";
-  document.querySelector('#db3').innerHTML = "";
-  document.querySelector('#maincode').innerHTML = "";
-  document.querySelector('#subcode').innerHTML = "";
-//  console.log(data);
+      // ลบค่าเก่าใน dropdown ของ subcategory
+      // document.querySelector('#latitude').innerHTML = "";
+      // document.querySelector('#longitude').innerHTML = "";
+      document.querySelector('#db1').innerHTML = "";
+      // document.querySelector('#db2').innerHTML = "";
+      document.querySelector('#db3').innerHTML = "";
+      document.querySelector('#maincode').innerHTML = "";
+      document.querySelector('#subcode').innerHTML = "";
+      //  console.log(data);
       // เพิ่ม option สำหรับแต่ละ subcategory
       data.datas.forEach(subdatas => {
-    
+
         // document.querySelector('#latitude').value = subdatas.lat;
         // document.querySelector('#longitude').value = subdatas.long;
         document.querySelector('#db1').value = subdatas.db1;
         // document.querySelector('#db2').value = subdatas.db2;
         document.querySelector('#db3').value = subdatas.db3;
-        document.querySelector('#maincode').value = subdatas.maincode;
-        document.querySelector('#subcode').value = subdatas.subcode;
-        
+        document.querySelector('#maincode').value = subdatas.mainmain;
+        document.querySelector('#subcode').value = subdatas.submain;
+
       });
       main();
     })
@@ -113,9 +116,9 @@ async function main() {
 main()
 
 async function insertdata() {
-  
+
   let category = document.querySelector('#category').value;
-  if (category.length < 2 || category === 'สังกัด' ) {
+  if (category.length < 2 || category === 'สังกัด') {
     Swal.fire(
       "ผิดพลาด!",
       "โปรดเลือกหน่วยงาน!",
@@ -194,7 +197,7 @@ async function insertdata() {
     );
     return;
   }
-  
+
   let birthday = document.querySelector('#birthday').value;
   if (birthday.length < 2) {
     Swal.fire(
@@ -256,7 +259,7 @@ async function insertdata() {
   }
 
   let tel = document.querySelector('#tel').value;
-  if (tel.length !==10) {
+  if (tel.length !== 10) {
     Swal.fire(
       "ผิดพลาด!",
       "โปรดกรอกเบอร์มือถือที่ถูกต้อง",
@@ -266,7 +269,7 @@ async function insertdata() {
   }
 
   let email = document.querySelector('#email').value;
-  
+
 
   // Regular expression for basic email validation
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -285,7 +288,7 @@ async function insertdata() {
 
 
   let latitude = document.querySelector('#latitude').value;
-  if (category === 'อื่นๆ' && latitude.length < 2 ) {
+  if (category === 'อื่นๆ' && latitude.length < 2) {
     Swal.fire(
       "ผิดพลาด!",
       "โปรดระบุชื่อหน่วยงานหรือบันทึกเพิ่มเติม!",
@@ -309,8 +312,13 @@ async function insertdata() {
   let maincode = document.querySelector('#maincode').value;
   let subcode = document.querySelector('#subcode').value;
 
-  
-let message = `
+  let dend2 = document.querySelector('#dend2').value;
+  let dend3 = document.querySelector('#dend3').value;
+  let dend4 = document.querySelector('#dend4').value;
+
+
+
+  let message = `
 สังกัด : ${category} <br>
 หน่วยงาน/กลุ่มงาน : ${subcategory} <br>
 เลขบัตร(เข้ารหัสแล้ว) : ${hash_cid} <br>
@@ -327,74 +335,74 @@ let message = `
 เพิ่มเติม : ${latitude} <br>
 --หมายเหตุ : ระบบจะรับค่าวันที่เป็นปี ค.ศ.--
 `;
-      
-Swal.fire({
-  title: 'โปรดตรวจสอบความถูกต้อง',
-  html: message,
-  icon: 'info',
-  showCancelButton: true,
-  confirmButtonText: 'ยืนยัน',
-  cancelButtonText: 'แก้ไข'
-}).then((result) => {
-  // If the user clicks "OK", you can proceed with further actions
-  if (result.isConfirmed) {
-        // เตือน
-        let timerInterval;
-        let startTime;
-        
-        Swal.fire({
-          title: "กำลังส่งข้อมูล โปรดรอสักครู่...",
-          html: 'เวลา <b>0</b> วินาที',
-          timerProgressBar: true,
-          didOpen: () => {
-            Swal.showLoading();
-            const timer = Swal.getHtmlContainer().querySelector("b");
-            startTime = Date.now();
-            timerInterval = setInterval(() => {
-              const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-              timer.textContent = elapsedTime;
-            }, 100);
-          },
-          willClose: () => {
-            clearInterval(timerInterval);
-          }
-        }).then((result) => {
-          if (result.dismiss === Swal.DismissReason.timer) {
-            console.log("I was closed by the timer");
-          }
-        });
-     // ส่งค่า พร้อมดึงข้อมูล
-  fetch(`https://script.google.com/macros/s/AKfycbxoAVv-7CKg8pScLvD0vlIrBPrL5Vl65VTlMh9NrLoX-Pk_YqBvEjwoOkC5AP0ca4SygQ/exec?hash_cid=${hash_cid}&pname=${pname}&fname=${fname}&lname=${lname}&job=${job}&category=${category}&subcategory=${subcategory}&username=${username}&userid=${userid}&userimg=${userimg}&useros=${useros}&latitude=${latitude}&longitude=${longitude}&db1=${db1}&db2=${db2}&db3=${db3}&maincode='${maincode}&subcode='${subcode}&birthday=${birthday}&license=${license}&nlicense=${nlicense}&dlicense=${dlicense}&dend=${dend}&djob=${djob}&tel='${tel}&email=${email}`)
-    .then(response => response.json())
-    .then(data => {
-      // เพิ่ม option สำหรับแต่ละ subcategory
-      data.data.forEach(datas => {
-        let iconx = datas.icon;
-        let header = datas.header;
-        let text = datas.text;
-        Swal.fire({
-          confirmButtonColor: '#1e90ff',
-          icon: iconx,
-          title: header,
-          text: text
+
+  Swal.fire({
+    title: 'โปรดตรวจสอบความถูกต้อง',
+    html: message,
+    icon: 'info',
+    showCancelButton: true,
+    confirmButtonText: 'ยืนยัน',
+    cancelButtonText: 'แก้ไข'
+  }).then((result) => {
+    // If the user clicks "OK", you can proceed with further actions
+    if (result.isConfirmed) {
+      // เตือน
+      let timerInterval;
+      let startTime;
+
+      Swal.fire({
+        title: "กำลังส่งข้อมูล โปรดรอสักครู่...",
+        html: 'เวลา <b>0</b> วินาที',
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+          const timer = Swal.getHtmlContainer().querySelector("b");
+          startTime = Date.now();
+          timerInterval = setInterval(() => {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            timer.textContent = elapsedTime;
+          }, 100);
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        }
       }).then((result) => {
-          // ตรวจสอบว่าผู้ใช้กดปุ่มตกลงหรือไม่
-          if (result.isConfirmed) {
-              // กระทำที่ต้องการทำหลังจากกดปุ่มตกลง
+        if (result.dismiss === Swal.DismissReason.timer) {
+          console.log("I was closed by the timer");
+        }
+      });
+      // ส่งค่า พร้อมดึงข้อมูล
+      fetch(`https://script.google.com/macros/s/AKfycbxoAVv-7CKg8pScLvD0vlIrBPrL5Vl65VTlMh9NrLoX-Pk_YqBvEjwoOkC5AP0ca4SygQ/exec?hash_cid=${hash_cid}&pname=${pname}&fname=${fname}&lname=${lname}&job=${job}&category=${category}&subcategory=${subcategory}&username=${username}&userid=${userid}&userimg=${userimg}&useros=${useros}&latitude=${latitude}&longitude=${longitude}&db1=${db1}&db2=${db2}&db3=${db3}&maincode='${maincode}&subcode='${subcode}&birthday=${birthday}&license=${license}&nlicense=${nlicense}&dlicense=${dlicense}&dend=${dend}&djob=${djob}&tel='${tel}&email=${email}&dend2=${dend2}&dend3=${dend3}&dend4=${dend4}`) 
+        .then(response => response.json())
+        .then(data => {
+          // เพิ่ม option สำหรับแต่ละ subcategory
+          data.data.forEach(datas => {
+            let iconx = datas.icon;
+            let header = datas.header;
+            let text = datas.text;
+            Swal.fire({
+              confirmButtonColor: '#1e90ff',
+              icon: iconx,
+              title: header,
+              text: text
+            }).then((result) => {
+              // ตรวจสอบว่าผู้ใช้กดปุ่มตกลงหรือไม่
+              if (result.isConfirmed) {
+                // กระทำที่ต้องการทำหลังจากกดปุ่มตกลง
                 window.location.href = 'index.html'; //login.html
-          }
-      });
+              }
+            });
 
-        // ---
-      });
+            // ---
+          });
 
-    })
-  .catch(error => console.error("Error fetching subcategories:", error));
-  }
-  // If the user clicks "Cancel", the dialog will simply close without further action
-});
+        })
+        .catch(error => console.error("Error fetching subcategories:", error));
+    }
+    // If the user clicks "Cancel", the dialog will simply close without further action
+  });
 
- 
+
 
 
 }
