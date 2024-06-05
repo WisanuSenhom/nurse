@@ -441,7 +441,8 @@ async function checkLocalStorage() {
                         <option value="ผลงานวิชาการ">ผลงานวิชาการ</option>
                         <option value="นวัตกรรม">นวัตกรรม</option>
                     </select>
-                    <input id="work2" type="text" class="swal2-input" placeholder="ชื่อผลงาน">
+                  
+                    <textarea id="work2" class="swal2-textarea" placeholder="ชื่อผลงาน"></textarea>
                     <textarea id="details" class="swal2-textarea" placeholder="รายละเอียด"></textarea>`,
                                 focusConfirm: false,
                                 preConfirm: () => {
