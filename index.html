@@ -16,7 +16,7 @@
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"
         integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" crossorigin="anonymous"></script>
 
-        
+
 
     <title>สภาการพยาบาลจังหวัดบึงกาฬ | สสจ.บึงกาฬ</title>
 </head>
@@ -28,12 +28,12 @@
         <div class="info-text">
             <h1>สภาการพยาบาลจังหวัดบึงกาฬ</h1>
             <h3>สำนักงานสาธารณสุขจังหวัดบึงกาฬ</h3>
-            <h6>ปรับปรุงเมื่อ : 2024-05-31 11:00</h6>
+            <h6>ปรับปรุงเมื่อ : 2024-06-05 14:30</h6>
             <a href="#about" class="scroll"><i class='bx bxs-down-arrow'></i></a>
         </div>
     </header>
-    
-     <section id="about">
+
+    <section id="about">
         <div class="header">
             <h1>About Me</h1>
             <a href="#" onclick="clearLocal()">RESET</a>
@@ -51,8 +51,8 @@
         </div>
     </section>
 
-     <!-- สรุปข้อมูล -->
-     <section id="features">
+    <!-- สรุปข้อมูล -->
+    <section id="features">
         <div class="header">
             <h1>summary</h1>
             <a href="#" onclick="opendash()">See More</a>
@@ -61,7 +61,7 @@
             <div class="card">
                 <div class="info">
                     <i class='bx bxs-user'></i>
-                    <h1 id ="sumdata">....</h1>
+                    <h1 id="sumdata">....</h1>
                     <p id="utimeline">
                         ...
                     </p>
@@ -102,123 +102,191 @@
 
         <div class="info">
             <div class="table-wrapper">
-            <table class="table table-striped table-sm" id="userTable">
-                <thead>
-                    <th>รหัส</th>
-                    <th>ชื่อ-สกุล</th>
-                    <th>อายุ(ปี)</th>
-                    <th>ตำแหน่ง</th>
-                    <th>สถานะงาน</th>
-                    <th>สังกัด</th>
-                    <th>กลุ่มงาน/หน่วยงาน</th>
-                    <th>เลขที่ใบอนุญาตประกอบวิชาชีพ</th>
-                    <th>เลขที่สมาชิกสภาการพยาบาล</th>
-                    <th>วันหมดอายุ</th>
-                    <th>วันที่จบ</th>
-                    <th>วันที่เริ่มงาน</th>
-                    <th>เบอร์มือถือ</th>
-                    <th>อีเมล์</th>
-                    <th>เพิ่มเติม</th>
-                    <th>วันที่ลงทะเบียน</th>
-                </thead>
-                <tbody id="tbody">
-            </table>
+                <table class="table table-striped table-sm" id="userTable">
+                    <thead>
+                        <th>รหัส</th>
+                        <th>สถานะ</th>
+                        <th>คำนำ</th>
+                        <th>ชื่อ</th>
+                        <th>สกุล</th>
+                        <th>วันเกิด</th>
+                        <th>อายุ(ปี)</th>
+                        <th>ตำแหน่ง</th>
+                        <th>สถานะงาน</th>
+                        <th>สังกัด</th>
+                        <th>กลุ่มงาน/หน่วยงาน</th>
+                        <th>เลขที่ใบอนุญาตประกอบวิชาชีพ</th>
+                        <th>เลขที่สมาชิกสภาการพยาบาล</th>
+                        <th>วันหมดอายุ</th>
+                        <th>วันที่เริ่มงาน</th>
+                        <th>วันที่จบ ป.ตรี พยาบาลศาสตรบัณฑิต</th>
+                        <th>วันที่จบ ป.โท พยาบาลศาสตรมหาบัณฑิต</th>
+                        <th>วันที่จบ ป.เอก ศาสตรดุษฎีบัณฑิต</th>
+                        <th>หลักสูตร 4 เดือนขึ้นไป</th>
+                        <th>เบอร์มือถือ</th>
+                        <th>อีเมล์</th>
+                        <th>เพิ่มเติม</th>
+                        <th>ผลงาน</th>
+                        <th>สิทธิ์</th>
+                        <th>วันที่ลงทะเบียน</th>
+                        <th>วันที่ปรับปรุงล่าสุด</th>
+                    </thead>
+                    <tbody id="tbody">
+                </table>
             </div>
         </div>
     </section>
 
- 
+
     <button class="scroll-top" onclick="scrollToTop()">
         <i class='bx bxs-up-arrow'></i>
     </button>
 
- <!-- Edit Modal -->
- <div id="editModal" class="modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit User</h5>
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit User</h5>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button> -->
-            </div>
-            <div class="modal-body">
-                <form id="editForm">
-                    <div class="form-group">
-                        <label for="editId">ID</label>
-                        <input type="text" class="form-control" id="editId" name="id" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="editName">Name</label>
-                        <input type="text" class="form-control" id="editName" name="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="editAge">Age</label>
-                        <input type="number" class="form-control" id="editAge" name="age">
-                    </div>
-                    <div class="form-group">
-                        <label for="editJob">Job</label>
-                        <input type="text" class="form-control" id="editJob" name="job">
-                    </div>
-                    <div class="form-group">
-                        <label for="editWork">Work</label>
-                        <input type="text" class="form-control" id="editWork" name="work">
-                    </div>
-                    <div class="form-group">
-                        <label for="editMain">Main</label>
-                        <input type="text" class="form-control" id="editMain" name="main">
-                    </div>
-                    <div class="form-group">
-                        <label for="editSub">Sub</label>
-                        <input type="text" class="form-control" id="editSub" name="sub">
-                    </div>
-                    <div class="form-group">
-                        <label for="editDocno1">Doc No1</label>
-                        <input type="text" class="form-control" id="editDocno1" name="docno1">
-                    </div>
-                    <div class="form-group">
-                        <label for="editDocno2">Doc No2</label>
-                        <input type="text" class="form-control" id="editDocno2" name="docno2">
-                    </div>
-                    <div class="form-group">
-                        <label for="editDocdate1">Doc Date1</label>
-                        <input type="date" class="form-control" id="editDocdate1" name="docdate1">
-                    </div>
-                    <div class="form-group">
-                        <label for="editDocdate2">Doc Date2</label>
-                        <input type="date" class="form-control" id="editDocdate2" name="docdate2">
-                    </div>
-                    <div class="form-group">
-                        <label for="editDocdate3">Doc Date3</label>
-                        <input type="date" class="form-control" id="editDocdate3" name="docdate3">
-                    </div>
-                    <div class="form-group">
-                        <label for="editTel">Tel</label>
-                        <input type="text" class="form-control" id="editTel" name="tel">
-                    </div>
-                    <div class="form-group">
-                        <label for="editMail">Mail</label>
-                        <input type="email" class="form-control" id="editMail" name="mail">
-                    </div>
-                    <div class="form-group">
-                        <label for="editNote">Note</label>
-                        <input type="text" class="form-control" id="editNote" name="note">
-                    </div>
-                    <div class="form-group">
-                        <label for="editDupdate">Dupdate</label>
-                        <input type="text" class="form-control" id="editDupdate" name="dupdate">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-close" data-dismiss="modal">ปิด</button>
-                <button type="button" class="btn btn-save" id="saveChanges">แก้ไข</button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <!-- <label for="editId">ID</label> -->
+                            <input type="text" class="form-control" id="editId" name="id" readonly hidden>
+                        </div>
+                        <div class="form-group">
+                            <label for="editstatus">Status</label>
+                            <!-- <input type="text" class="form-control" id="editstatus" name="status"> -->
+                            <select class="form-control" id="editstatus" name="status">
+                                <option value="active">ปฎิบัติงาน</option>
+                                <option value="deactive">ไม่ได้ปฎิบัติงานแล้ว</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editPName">คำนำ</label>
+                            <input type="text" class="form-control" id="editPName" name="pname">
+                        </div>
+                        <div class="form-group">
+                            <label for="editFName">ชื่อ</label>
+                            <input type="text" class="form-control" id="editFName" name="fname">
+                        </div>
+                        <div class="form-group">
+                            <label for="editLName">สกุล</label>
+                            <input type="text" class="form-control" id="editLName" name="lname">
+                        </div>
+                        <div class="form-group">
+                            <label for="editbirth">เกิด</label>
+                            <input type="date" class="form-control" id="editbirth" name="birthday">
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="editAge">Age</label> -->
+                            <input type="number" class="form-control" id="editAge" name="age" readonly hidden>
+                        </div>
+                        <div class="form-group">
+                            <label for="editJob">ตำแหน่ง</label>
+                            <!-- <input type="text" class="form-control" id="editJob" name="job"> -->
+                            <select class="form-control" id="editJob" name="job">
+                                <option value="พนักงานธุรการ">พนักงานธุรการ</option>
+                                <option value="พยาบาลวิชาชีพ">พยาบาลวิชาชีพ</option>
+                                <option value="พยาบาลวิชาชีพปฏิบัติการ">พยาบาลวิชาชีพปฏิบัติการ</option>
+                                <option value="พยาบาลวิชาชีพชำนาญการ">พยาบาลวิชาชีพชำนาญการ</option>
+                                <option value="พยาบาลวิชาชีพชำนาญการพิเศษ">พยาบาลวิชาชีพชำนาญการพิเศษ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editWork">สถานะงาน</label>
+                            <!-- <input type="text" class="form-control" id="editWork" name="work"> -->
+                            <select class="form-control" id="editWork" name="work">
+                                <option value="ข้าราชการ">ข้าราชการ</option>
+                                <option value="พนักงานกระทรวง">พนักงานกระทรวง</option>
+                                <option value="ลูกจ้างเอกชน">ลูกจ้างเอกชน</option>
+                                <option value="ลูกจ้างชั่วคราว(ในหน่วยงานราชการ)">ลูกจ้างชั่วคราว(ในหน่วยงานราชการ)
+                                </option>
+                                <option value="ลูกจ้างเหมา(ในหน่วยงานราชการ)">ลูกจ้างเหมา(ในหน่วยงานราชการ)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="editMain">Main</label> -->
+                            <input type="text" class="form-control" id="editMain" name="main" readonly hidden>
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="editSub">Sub</label> -->
+                            <input type="text" class="form-control" id="editSub" name="sub" readonly hidden>
+                        </div>
+                        <div class="form-group">
+                            <label for="editDocno1">เลขที่ใบอนุญาตประกอบวิชาชีพ</label>
+                            <input type="text" class="form-control" id="editDocno1" name="docno1">
+                        </div>
+                        <div class="form-group">
+                            <label for="editDocno2">เลขที่สมาชิกสภาการพยาบาล</label>
+                            <input type="text" class="form-control" id="editDocno2" name="docno2">
+                        </div>
+                        <div class="form-group">
+                            <label for="editDocdate1">วันหมดอายุใบประกอบวิชาชีพ</label>
+                            <input type="date" class="form-control" id="editDocdate1" name="docdate1">
+                        </div>
+                        <div class="form-group">
+                            <label for="editDocdate3">วันที่เริ่มปฏิบัติงาน</label>
+                            <input type="date" class="form-control" id="editDocdate3" name="docdate3">
+                        </div>
+                        <div class="form-group">
+                            <label for="editdgdate1">วันที่จบ ป.ตรี พยาบาลศาสตรบัณฑิต</label>
+                            <input type="date" class="form-control" id="editdgdate1" name="dgdate1">
+                        </div>
+                        <div class="form-group">
+                            <label for="editdgdate2">วันที่จบ ป.โท พยาบาลศาสตรมหาบัณฑิต</label>
+                            <input type="date" class="form-control" id="editdgdate2" name="dgdate2">
+                        </div>
+                        <div class="form-group">
+                            <label for="editdgdate3">วันที่จบ ป.เอก ศาสตรดุษฎีบัณฑิต</label>
+                            <input type="date" class="form-control" id="editdgdate3" name="dgdate3">
+                        </div>
+                        <div class="form-group">
+                            <label for="editcourse">หลักสูตร 4 เดือนขึ้นไป</label>
+                            <textarea class="form-control" id="editcourse" name="course" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editTel">เบอร์โทร</label>
+                            <input type="text" class="form-control" id="editTel" name="tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="editMail">อีเมล์</label>
+                            <input type="email" class="form-control" id="editMail" name="mail">
+                        </div>
+                        <div class="form-group">
+                            <label for="editNote">เพิ่มเติม</label>
+                            <textarea class="form-control" id="editNote" name="note" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <!-- <label for="editmywork">ผลงาน</label> -->
+                            <input type="text" class="form-control" id="editmywork" name="mywork" readonly hidden>
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="editRole">Role</label> -->
+                            <input type="text" class="form-control" id="editRole" name="role" readonly hidden>
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="editDupdate">Dupdate</label> -->
+                            <input type="text" class="form-control" id="editDupdate" name="dupdate" readonly hidden>
+                        </div>
+                        <div class="form-group">
+                            <!-- <label for="editordate">editordate</label> -->
+                            <input type="text" class="form-control" id="editordate" name="editordate" readonly hidden>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-close" data-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-save" id="saveChanges">แก้ไข</button>
+                </div>
             </div>
         </div>
     </div>
-</div>  
-
-
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
@@ -283,8 +351,8 @@
         src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
 
     <!-- Datatable Select  -->
-<link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css" />
-<script type="text/javascript" src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
