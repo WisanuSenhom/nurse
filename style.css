@@ -44,10 +44,23 @@ header .info-text h1 {
   font-size: 5rem;
   font-weight: 500;
   font-family: "Sarabun";
+  animation: fadeIn 10s ease-in-out infinite alternate; /* Add animation */
 }
 
+@keyframes fadeIn {
+  0% {
+    color: rgb(229, 243, 252);
+  }
+  100% {
+    color: white;
+  }
+}
+
+
 header .info-text h3 {
+  color: rgb(231, 230, 230);
   font-size: 1.5rem;
+  font-family: "Sarabun";  
 }
 
 header .info-text .scroll {
@@ -229,7 +242,7 @@ header .info-text .scroll::before {
 
 @media screen and (max-width: 720px) {
   header .info-text h1 {
-    font-size: 3rem;
+    font-size: 1.7rem;
   }
 
   header .info-text h3 {
@@ -311,7 +324,7 @@ th {
 }
 
 .modal-dialog {
-  margin: 10% auto;
+  margin: 2.5% auto;
   width: 50%;
   font-size: 14pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
   font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
@@ -324,17 +337,18 @@ th {
 }
 
 .modal-header {
-  background-color: #007bff;
+  background-color:  #2b2f4b;
   color: #fff;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  line-height: 2;
-  font-size: 12pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
+  line-height: 3;
+  font-size: 14pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
   font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
   text-align: center;
 }
 
 .modal-body {
+  background-color: #f0f2f7;
   padding: 20px;
   line-height: 1.5;
   font-size: 10pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
@@ -342,11 +356,11 @@ th {
 }
 
 .modal-footer {
-  background-color: #007bff;
+  background-color:  #2b2f4b;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   text-align: center;
-  line-height: 2;
+  line-height: 3;
   font-size: 12pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
   font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
 }
@@ -370,14 +384,14 @@ th {
 
 /* Scrollbar */
 .modal-body {
-  max-height: 400px;
+  height: 75vh; 
   overflow-y: auto;
 }
 
 /* CSS for Edit Modal on Mobile */
 @media (max-width: 576px) {
   .modal-dialog {
-    margin: 30% auto;
+    margin: 2% auto;
     width: 90%;
   }
 }
