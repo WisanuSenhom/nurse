@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   
     <link rel="stylesheet" href="style.css">
 
     <!-- jQuery -->
@@ -29,14 +32,14 @@
             <h1>สภาการพยาบาลจังหวัดบึงกาฬ</h1>
             <h3>สำนักงานสาธารณสุขจังหวัดบึงกาฬ</h3>
             <h6>ปรับปรุงเมื่อ : 2024-06-05 14:30</h6>
-            <a href="#about" class="scroll"><i class='bx bxs-down-arrow'></i></a>
+            <a href="#about" class="scroll"> <i class="fa-solid fa-sort-down"></i></a>
         </div>
     </header>
 
     <section id="about">
         <div class="header">
             <h1>About Me</h1>
-            <a href="#" onclick="clearLocal()">RESET</a>
+            <a href="#" onclick="clearLocal()"><i class="fa-solid fa-arrows-rotate"></i> Reset</a>
         </div>
 
         <div class="card">
@@ -55,12 +58,12 @@
     <section id="features">
         <div class="header">
             <h1>summary</h1>
-            <a href="#" onclick="opendash()">See More</a>
+            <a href="#" onclick="opendash()"><i class="fa-solid fa-bars"></i> More</a>
         </div>
         <div class="feature-cards">
             <div class="card">
                 <div class="info">
-                    <i class='bx bxs-user'></i>
+                    <i class="fa-solid fa-users"></i>
                     <h1 id="sumdata">....</h1>
                     <p id="utimeline">
                         ...
@@ -95,7 +98,7 @@
     <section id="about">
         <div class="header">
             <h1>Nurse Data</h1>
-            <a href="#" onclick="openWeb()">+ADD DATA</a>
+            <a href="#" onclick="openWeb()"><i class="fa-solid fa-user-plus"></i> Add</a>
         </div>
 
         <!-- <div class="card"> -->
@@ -118,10 +121,11 @@
                         <th>เลขที่ใบอนุญาตประกอบวิชาชีพ</th>
                         <th>เลขที่สมาชิกสภาการพยาบาล</th>
                         <th>วันหมดอายุ</th>
+                        <th>คงเหลือ(วัน)</th>
                         <th>วันที่เริ่มงาน</th>
-                        <th>วันที่จบ ป.ตรี พยาบาลศาสตรบัณฑิต</th>
-                        <th>วันที่จบ ป.โท พยาบาลศาสตรมหาบัณฑิต</th>
-                        <th>วันที่จบ ป.เอก ศาสตรดุษฎีบัณฑิต</th>
+                        <th>วันที่จบ ป.ตรี</th>
+                        <th>วันที่จบ ป.โท</th>
+                        <th>วันที่จบ ป.เอก</th>
                         <th>หลักสูตร 4 เดือนขึ้นไป</th>
                         <th>เบอร์มือถือ</th>
                         <th>อีเมล์</th>
@@ -139,7 +143,7 @@
 
 
     <button class="scroll-top" onclick="scrollToTop()">
-        <i class='bx bxs-up-arrow'></i>
+        <i class="fa-solid fa-caret-up"></i>
     </button>
 
     <!-- Edit Modal -->
@@ -147,7 +151,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit User</h5>
+                    <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> แก้ไขข้อมูล</h5>
                     <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button> -->
@@ -159,10 +163,10 @@
                             <input type="text" class="form-control" id="editId" name="id" readonly hidden>
                         </div>
                         <div class="form-group">
-                            <label for="editstatus">Status</label>
+                            <label for="editstatus">สถานะ</label>
                             <!-- <input type="text" class="form-control" id="editstatus" name="status"> -->
                             <select class="form-control" id="editstatus" name="status">
-                                <option value="active">ปฎิบัติงาน</option>
+                                <option value="active">ยังปฎิบัติงาน</option>
                                 <option value="deactive">ไม่ได้ปฎิบัติงานแล้ว</option>
                             </select>
                         </div>
@@ -242,7 +246,7 @@
                             <input type="date" class="form-control" id="editdgdate2" name="dgdate2">
                         </div>
                         <div class="form-group">
-                            <label for="editdgdate3">วันที่จบ ป.เอก ศาสตรดุษฎีบัณฑิต</label>
+                            <label for="editdgdate3">วันที่จบ ป.เอก พยาบาลศาสตรดุษฎีบัณฑิต</label>
                             <input type="date" class="form-control" id="editdgdate3" name="dgdate3">
                         </div>
                         <div class="form-group">
@@ -281,8 +285,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-close" data-dismiss="modal">ปิด</button>
-                    <button type="button" class="btn btn-save" id="saveChanges">แก้ไข</button>
+                    <button type="button" class="btn btn-close" data-dismiss="modal"><i class="fa-solid fa-xmark"></i> ปิด</button>
+                    <button type="button" class="btn btn-save" id="saveChanges"><i class="fa-solid fa-floppy-disk"></i> แก้ไข</button>
                 </div>
             </div>
         </div>
