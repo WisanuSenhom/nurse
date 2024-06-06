@@ -90,7 +90,24 @@ window.addEventListener('scroll', function () {
 });
 
 
-// ตรวจสอบข้อมูล เ
+function calculateDaysUntilExpiry(expiryDate) {
+    // Get the current date
+    const currentDate = new Date();
+
+    // Parse the expiry date
+    const expiry = new Date(expiryDate);
+
+    // Calculate the difference in milliseconds
+    const differenceInMilliseconds = expiry - currentDate;
+
+    // Convert milliseconds to days
+    const millisecondsInADay = 24 * 60 * 60 * 1000;
+    const daysUntilExpiry = Math.ceil(differenceInMilliseconds / millisecondsInADay);
+
+    return daysUntilExpiry;
+}
+
+// ตรวจสอบข้อมูล 
 
 window.onload = function () {
     // เมื่อหน้าเว็บโหลดเสร็จสมบูรณ์
@@ -121,13 +138,24 @@ async function checkLocalStorage() {
         var userid = localStorage.getItem("userid");
         var username = localStorage.getItem("name");
 
+        var ymd = localStorage.getItem("ymd");
+      
+        // Example usage
+        const expiryDate = ymd; // Replace with your expiry date
+        const days = calculateDaysUntilExpiry(expiryDate);
+
+        // Format the number with commas
+        const formattedDays = days.toLocaleString();
+
+       // console.log(`There are ${formattedDays} days until the expiry date.`);
+
         // ข้อมูลส่วนบุคคล
         //รูป
         document.querySelector('#yourpic').src = localStorage.getItem("yourpic");
         //อักษร
         document.querySelector('#iname').innerText = localStorage.getItem("name") + " " + localStorage.getItem("job");
 
-        document.querySelector('#imore').innerText = "ปฏิบัติงานที่ : " + localStorage.getItem("office") + " สังกัด " + localStorage.getItem("mainsub") + "\nเลขที่ใบประกอบ : " + localStorage.getItem("docno1") + "\nหมดอายุ : " + localStorage.getItem("expdate");
+        document.querySelector('#imore').innerText = "ปฏิบัติงานที่ : " + localStorage.getItem("office") + " สังกัด " + localStorage.getItem("mainsub") + "\nเลขที่ใบประกอบ : " + localStorage.getItem("docno1") + "\nหมดอายุ : " + localStorage.getItem("expdate") + "\nคงเหลือ : " + formattedDays + " วัน";
 
 
         const xurl = `https://script.google.com/macros/s/AKfycbylCw3tDaOSVObW7x8NQxONmO-bhe16NPnOOOJm0nRIfXZEuLdF2irlh3AxoqeN7oci/exec?id=${userid}`;
@@ -153,6 +181,7 @@ async function checkLocalStorage() {
         <td>${user.docno1}</td>
         <td>${user.docno2}</td>
         <td>${user.docdate1}</td>
+        <td>${user.expire}</td>
         <td>${user.docdate3}</td>
         <td>${user.dgdate1}</td>
         <td>${user.dgdate2}</td>
@@ -187,6 +216,7 @@ async function checkLocalStorage() {
                 { "data": 'docno1' },
                 { "data": 'docno2' },
                 { "data": 'docdate1' },
+                { "data": 'expire' },
                 { "data": 'docdate3' },
                 { "data": 'dgdate1' },
                 { "data": 'dgdate2' },
@@ -200,9 +230,15 @@ async function checkLocalStorage() {
                 { "data": 'dupdate' },
                 { "data": 'editordate' }
             ],
+            "columnDefs": [
+                {
+                    "targets": 14, // คอลัมน์ที่ 1 (เริ่มจาก 0)
+                    "render": $.fn.dataTable.render.number(',', '.', 0, '') // ตั้งค่าคอมมา
+                }
+            ],
             "processing": true,
             "responsive": true,
-            "order": [[5, 'asc'], [6, 'asc'], [4, 'asc']],
+            "order": [[9, 'asc'], [10, 'asc'], [8, 'asc']],
             "dom": 'lBfrtip',
             "lengthMenu": [[10, 30, 70, 100, 150, 200, -1], [10, 30, 70, 100, 150, 200, "ทั้งหมด"]],
             "buttons": [
@@ -357,7 +393,7 @@ async function checkLocalStorage() {
                                         try {
                                             // Send data to Google Apps Script Web App
                                             let ggdata = `https://script.google.com/macros/s/AKfycbwt7jh-2c65VgpOGfMsAxajtIHJBifDnXSp5gsLdy-WYBmFKc-FzfxQBdz44o3mUrSL/exec?id=${selectData.id}&category=${category}&subcategory=${subcategory}&maincode=${subdata.maincode}&subcode=${subdata.subcode}&amphor=${subdata.amphor}`;
-                           
+
                                             let response = await fetch(ggdata);
                                             let data = await response.json();
 
@@ -414,7 +450,7 @@ async function checkLocalStorage() {
                             Swal.fire({
                                 icon: "error",
                                 title: "Oops...No row selected!",
-                                text: "โปรดเลือกรายการที่ต้องการกำหนด/แก้ไขสิทธิ์"
+                                text: "โปรดเลือกรายการที่ต้องการกำหนด/แก้ไขหน่วยงาน"
                             });
                         }
                     }
@@ -441,7 +477,7 @@ async function checkLocalStorage() {
                         <option value="ผลงานวิชาการ">ผลงานวิชาการ</option>
                         <option value="นวัตกรรม">นวัตกรรม</option>
                     </select>
-                  
+                   
                     <textarea id="work2" class="swal2-textarea" placeholder="ชื่อผลงาน"></textarea>
                     <textarea id="details" class="swal2-textarea" placeholder="รายละเอียด"></textarea>`,
                                 focusConfirm: false,
@@ -553,23 +589,23 @@ async function checkLocalStorage() {
                 ,
                 // ดูข้อมูลผลงาน
                 {
-                    text: 'ดูผลงาน/วิจัย/นวตกรรม',
+                    text: 'ดูผลงาน/วิจัย/นวัตกรรม',
                     action: async function () {
                         // Get selected rows from the 'userdata' DataTable
                         var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
-                    
+
                         if (selectedRows.length > 0) {
                             var selectData = selectedRows[0];
-                           // Show loading dialog
-                           Swal.fire({
-                            title: "กำลังโหลดข้อมูล!",
-                            text: "กรุณารอสักครู่",
-                            showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
-                            allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
-                            didOpen: () => {
-                                Swal.showLoading(); // แสดงตัวโหลด
-                            }
-                        });
+                            // Show loading dialog
+                            Swal.fire({
+                                title: "กำลังโหลดข้อมูล!",
+                                text: "กรุณารอสักครู่",
+                                showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
+                                allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
+                                didOpen: () => {
+                                    Swal.showLoading(); // แสดงตัวโหลด
+                                }
+                            });
                             // Fetch data from server
                             try {
                                 const response = await fetch(`https://script.google.com/macros/s/AKfycbxjB5Ddcpe0v_UuPDd6gx_gCrZtjm2fHYZ2JbGqPWWrhh-tBze-Mf3Ks5ccYJIcd7VA/exec?id=${selectData.id}`);
@@ -582,7 +618,7 @@ async function checkLocalStorage() {
                                     return; // ออกจากฟังก์ชันหากเกิดข้อผิดพลาด
                                 }
                                 const data = await response.json();
-                    
+
                                 // Prepare HTML content to display fetched data
                                 let htmlContent = '<table class="swal2-table">';
                                 data.forEach(item => {
@@ -593,14 +629,14 @@ async function checkLocalStorage() {
                                     // เพิ่มคอลัมน์เพิ่มเติมถ้าต้องการ
                                 });
                                 htmlContent += '</table>';
-                    
+
                                 // Show SweetAlert2 modal with fetched data
                                 await Swal.fire({
                                     title: 'ผลงาน/นวัตกรรม/วิจัย ของคุณ' + selectData.fname + " " + selectData.lname,
                                     html: htmlContent,
                                     // Your Swal.fire configuration options
                                 });
-                    
+
                             } catch (error) {
                                 console.error('Error fetching data:', error);
                                 // Handle error, show error message, etc.
@@ -620,9 +656,9 @@ async function checkLocalStorage() {
                         }
                     }
                 }
-               
-                
-,                
+
+
+                ,
                 //สิทธิ์
                 {
                     text: 'กำหนดสิทธิ์',
@@ -633,7 +669,7 @@ async function checkLocalStorage() {
                         if (selectedRows.length > 0) {
                             var selectData = selectedRows[0];
                             // Show SweetAlert2 modal for role selection
-                        
+
                             const result = await Swal.fire({
                                 title: "กำหนดสิทธิ์ให้ : " + selectData.pname + selectData.fname + " " + selectData.lname,
                                 input: "select",
@@ -783,7 +819,7 @@ async function checkLocalStorage() {
                     // ส่งข้อมูลไปยัง Google Apps Script Web App
                     let params = new URLSearchParams(updatedData).toString();
                     let ggdata = `https://script.google.com/macros/s/AKfycby5L_yY7zHt6d0_VjJg5-_E56dp7T7FBmu5jyAArMzj4IoFqYzvrDtFF9jF4oEs4OUv7w/exec?${params}`;
-          
+
                     fetch(ggdata)
                         .then(response => response.json())
                         .then(data => {
@@ -944,6 +980,7 @@ async function getmember(yourid, yourpic) {
             localStorage.setItem("docno2", user.docno2);
             localStorage.setItem("upic", user.upic);
             localStorage.setItem("expdate", user.expdate);
+            localStorage.setItem("ymd", user.ymd);
 
             // แสดงข้อมูล
 
@@ -952,7 +989,7 @@ async function getmember(yourid, yourpic) {
                 confirmButtonColor: '#0ef',
                 icon: 'success',
                 title: 'ลงชื่อเข้าใช้สำเร็จแล้ว',
-                text: 'ยินดีต้องรับ'
+                text: 'ยินดีต้อนรับ'
             }).then((result) => {
                 // ตรวจสอบว่าผู้ใช้กดปุ่มตกลงหรือไม่
                 if (result.isConfirmed) {
