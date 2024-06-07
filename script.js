@@ -139,7 +139,7 @@ async function checkLocalStorage() {
         var username = localStorage.getItem("name");
 
         var ymd = localStorage.getItem("ymd");
-      
+
         // Example usage
         const expiryDate = ymd; // Replace with your expiry date
         const days = calculateDaysUntilExpiry(expiryDate);
@@ -147,7 +147,7 @@ async function checkLocalStorage() {
         // Format the number with commas
         const formattedDays = days.toLocaleString();
 
-       // console.log(`There are ${formattedDays} days until the expiry date.`);
+        // console.log(`There are ${formattedDays} days until the expiry date.`);
 
         // ข้อมูลส่วนบุคคล
         //รูป
@@ -156,17 +156,23 @@ async function checkLocalStorage() {
         document.querySelector('#iname').innerText = localStorage.getItem("name") + " " + localStorage.getItem("job");
 
         document.querySelector('#imore').innerText = "ปฏิบัติงานที่ : " + localStorage.getItem("office") + " สังกัด " + localStorage.getItem("mainsub") + "\nเลขที่ใบประกอบ : " + localStorage.getItem("docno1") + "\nหมดอายุ : " + localStorage.getItem("expdate") + "\nคงเหลือ : " + formattedDays + " วัน";
+        
+        loadAPI();
+        loadTable(userid);
+    }
+}
 
+async function loadTable(userid) {  
 
-        const xurl = `https://script.google.com/macros/s/AKfycbylCw3tDaOSVObW7x8NQxONmO-bhe16NPnOOOJm0nRIfXZEuLdF2irlh3AxoqeN7oci/exec?id=${userid}`;
+    const xurl = `https://script.google.com/macros/s/AKfycbylCw3tDaOSVObW7x8NQxONmO-bhe16NPnOOOJm0nRIfXZEuLdF2irlh3AxoqeN7oci/exec?id=${userid}`;
 
-        const records = await fetch(xurl);
-        const data = await records.json();
+    const records = await fetch(xurl);
+    const data = await records.json();
 
-        let tab = '';
-        data.user.forEach(function (user) {
+    let tab = '';
+    data.user.forEach(function (user) {
 
-            tab += `<tr>
+        tab += `<tr>
        <td>${user.id}</td>
        <td>${user.status}</td>
         <td>${user.pname}</td>
@@ -196,114 +202,143 @@ async function checkLocalStorage() {
         <td>${user.editordate}</td>     
 
          </tr>`
-        });
+    });
 
-        document.getElementById('tbody').innerHTML = tab;
-        $('#userTable').DataTable({
-            "data": data.user,
-            "columns": [
-                { "data": 'id' },
-                { "data": 'status' },
-                { "data": 'pname' },
-                { "data": 'fname' },
-                { "data": 'lname' },
-                { "data": 'birthday' },
-                { "data": 'age' },
-                { "data": 'job' },
-                { "data": 'work' },
-                { "data": 'main' },
-                { "data": 'sub' },
-                { "data": 'docno1' },
-                { "data": 'docno2' },
-                { "data": 'docdate1' },
-                { "data": 'expire' },
-                { "data": 'docdate3' },
-                { "data": 'dgdate1' },
-                { "data": 'dgdate2' },
-                { "data": 'dgdate3' },
-                { "data": 'course' },
-                { "data": 'tel' },
-                { "data": 'mail' },
-                { "data": 'note' },
-                { "data": 'mywork' },
-                { "data": 'role' },
-                { "data": 'dupdate' },
-                { "data": 'editordate' }
-            ],
-            "columnDefs": [
-                {
-                    "targets": 14, // คอลัมน์ที่ 1 (เริ่มจาก 0)
-                    "render": $.fn.dataTable.render.number(',', '.', 0, '') // ตั้งค่าคอมมา
-                }
-            ],
-            "processing": true,
-            "responsive": true,
-            "order": [[9, 'asc'], [10, 'asc'], [8, 'asc']],
-            "dom": 'lBfrtip',
-            "lengthMenu": [[10, 30, 70, 100, 150, 200, -1], [10, 30, 70, 100, 150, 200, "ทั้งหมด"]],
-            "buttons": [
-                'excel', 'print',
-                {
-                    text: 'แก้ไข/เพิ่มเติม',
-                    action: async function () {
-                        var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
+    document.getElementById('tbody').innerHTML = tab;
+    $('#userTable').DataTable({
+        "data": data.user,
+        "columns": [
+            { "data": 'id' },
+            { "data": 'status' },
+            { "data": 'pname' },
+            { "data": 'fname' },
+            { "data": 'lname' },
+            { "data": 'birthday' },
+            { "data": 'age' },
+            { "data": 'job' },
+            { "data": 'work' },
+            { "data": 'main' },
+            { "data": 'sub' },
+            { "data": 'docno1' },
+            { "data": 'docno2' },
+            { "data": 'docdate1' },
+            { "data": 'expire' },
+            { "data": 'docdate3' },
+            { "data": 'dgdate1' },
+            { "data": 'dgdate2' },
+            { "data": 'dgdate3' },
+            { "data": 'course' },
+            { "data": 'tel' },
+            { "data": 'mail' },
+            { "data": 'note' },
+            { "data": 'mywork' },
+            { "data": 'role' },
+            { "data": 'dupdate' },
+            { "data": 'editordate' }
+        ],
+        "columnDefs": [
+            {
+                "targets": 14, // คอลัมน์ที่ 1 (เริ่มจาก 0)
+                "render": $.fn.dataTable.render.number(',', '.', 0, '') // ตั้งค่าคอมมา
+            }
+        ],
+        "processing": true,
+        "responsive": true,
+        "colReorder": true,
+        "fixedColumns": true,
+        "fixedHeader": true,
+        "order": [[9, 'asc'], [10, 'asc'], [8, 'asc']],
+        "dom": 'lBfrtip',
+        "lengthMenu": [[10, 30, 70, 100, 150, 200, -1], [10, 30, 70, 100, 150, 200, "ทั้งหมด"]],
+        "buttons": [
+            'excel', 'print',
+            {
+                text: 'แก้ไข/เพิ่มเติม',
+                action: async function () {
+                    var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
 
-                        if (selectedRows.length > 0) {
-                            var selectData = selectedRows[0];
+                    if (selectedRows.length > 0) {
+                        var selectData = selectedRows[0];
 
-                            // Populate the form with the initial values
-                            $('#editId').val(selectData.id);
-                            $('#editstatus').val(selectData.status);
-                            $('#editPName').val(selectData.pname);
-                            $('#editFName').val(selectData.fname);
-                            $('#editLName').val(selectData.lname);
-                            $('#editbirth').val(selectData.birthday);
-                            $('#editAge').val(selectData.age);
-                            $('#editJob').val(selectData.job);
-                            $('#editWork').val(selectData.work);
-                            $('#editMain').val(selectData.main);
-                            $('#editSub').val(selectData.sub);
-                            $('#editDocno1').val(selectData.docno1);
-                            $('#editDocno2').val(selectData.docno2);
-                            $('#editDocdate1').val(selectData.docdate1);
-                            $('#editDocdate3').val(selectData.docdate3);
-                            $('#editdgdate1').val(selectData.dgdate1);
-                            $('#editdgdate2').val(selectData.dgdate2);
-                            $('#editdgdate3').val(selectData.dgdate3);
-                            $('#editcourse').val(selectData.course);
-                            $('#editTel').val(selectData.tel);
-                            $('#editMail').val(selectData.mail);
-                            $('#editNote').val(selectData.note);
-                            $('#editmywork').val(selectData.mywork);
-                            $('#editRole').val(selectData.role);
-                            $('#editDupdate').val(selectData.dupdate);
-                            $('#editordate').val(selectData.editordate);
+                        // Populate the form with the initial values
+                        $('#editId').val(selectData.id);
+                        $('#editstatus').val(selectData.status);
+                        $('#editPName').val(selectData.pname);
+                        $('#editFName').val(selectData.fname);
+                        $('#editLName').val(selectData.lname);
+                        $('#editbirth').val(selectData.birthday);
+                        $('#editAge').val(selectData.age);
+                        $('#editJob').val(selectData.job);
+                        $('#editWork').val(selectData.work);
+                        $('#editMain').val(selectData.main);
+                        $('#editSub').val(selectData.sub);
+                        $('#editDocno1').val(selectData.docno1);
+                        $('#editDocno2').val(selectData.docno2);
+                        $('#editDocdate1').val(selectData.docdate1);
+                        $('#editDocdate3').val(selectData.docdate3);
+                        $('#editdgdate1').val(selectData.dgdate1);
+                        $('#editdgdate2').val(selectData.dgdate2);
+                        $('#editdgdate3').val(selectData.dgdate3);
+                        $('#editcourse').val(selectData.course);
+                        $('#editTel').val(selectData.tel);
+                        $('#editMail').val(selectData.mail);
+                        $('#editNote').val(selectData.note);
+                        $('#editmywork').val(selectData.mywork);
+                        $('#editRole').val(selectData.role);
+                        $('#editDupdate').val(selectData.dupdate);
+                        $('#editordate').val(selectData.editordate);
 
-                            // Show the modal
-                            $('#editModal').modal('show');
+                        // Show the modal
+                        $('#editModal').modal('show');
 
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Oops...",
-                                text: "กรุณาเลือกแถวที่ต้องการแก้ไขข้อมูล!"
-                            });
-                        }
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "กรุณาเลือกแถวที่ต้องการแก้ไขข้อมูล!"
+                        });
                     }
-                },
-                // หน่วยงาน
-                {
-                    text: 'แก้ไขหน่วยงาน',
-                    action: async function () {
-                        // Get selected rows from the 'userdata' DataTable
-                        var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
+                }
+            },
+            // หน่วยงาน
+            {
+                text: 'แก้ไขหน่วยงาน',
+                action: async function () {
+                    // Get selected rows from the 'userdata' DataTable
+                    var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
 
-                        if (selectedRows.length > 0) {
-                            var selectData = selectedRows[0];
+                    if (selectedRows.length > 0) {
+                        var selectData = selectedRows[0];
 
+                        // Show loading dialog
+                        Swal.fire({
+                            title: "กำลังโหลดข้อมูล! หน่วยงาน",
+                            showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
+                            allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
+                            didOpen: () => {
+                                Swal.showLoading(); // แสดงตัวโหลด
+                            }
+                        });
+
+                        // Show SweetAlert2 modal for role selection
+                        const inputOptions = await fetchInputOptions();
+                        const { value: category } = await Swal.fire({
+                            title: "กำหนดหน่วยงาน",
+                            input: "select",
+                            inputOptions: inputOptions,
+                            inputPlaceholder: "เลือกหน่วยงานหลัก",
+                            showCancelButton: true,
+                            inputValidator: (value) => {
+                                if (!value) {
+                                    return 'โปรดเลือกหน่วยงาน';
+                                }
+                            }
+                        });
+
+                        if (category) {
                             // Show loading dialog
                             Swal.fire({
-                                title: "กำลังโหลดข้อมูล! หน่วยงาน",
+                                title: "กำลังโหลดข้อมูล! หน่วยงานย่อย",
                                 showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
                                 allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
                                 didOpen: () => {
@@ -311,25 +346,27 @@ async function checkLocalStorage() {
                                 }
                             });
 
-                            // Show SweetAlert2 modal for role selection
-                            const inputOptions = await fetchInputOptions();
-                            const { value: category } = await Swal.fire({
-                                title: "กำหนดหน่วยงาน",
+
+                            const subcategories = await fetchSubcategoryOptions(category);
+                            const { value: subcategory } = await Swal.fire({
+                                title: "กำหนดหน่วยงานย่อย",
                                 input: "select",
-                                inputOptions: inputOptions,
-                                inputPlaceholder: "เลือกหน่วยงานหลัก",
+                                inputOptions: subcategories.reduce((options, subcategory) => {
+                                    options[subcategory.id] = subcategory.name;
+                                    return options;
+                                }, { "": "โปรดเลือกหน่วยงานย่อย" }),
+                                inputPlaceholder: "เลือกหน่วยงานย่อย",
                                 showCancelButton: true,
                                 inputValidator: (value) => {
                                     if (!value) {
-                                        return 'โปรดเลือกหน่วยงาน';
+                                        return 'โปรดเลือกหน่วยงานย่อย';
                                     }
                                 }
                             });
 
-                            if (category) {
-                                // Show loading dialog
+                            if (subcategory) {
                                 Swal.fire({
-                                    title: "กำลังโหลดข้อมูล! หน่วยงานย่อย",
+                                    title: "กำลังโหลดข้อมูล!",
                                     showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
                                     allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
                                     didOpen: () => {
@@ -337,140 +374,112 @@ async function checkLocalStorage() {
                                     }
                                 });
 
-
-                                const subcategories = await fetchSubcategoryOptions(category);
-                                const { value: subcategory } = await Swal.fire({
-                                    title: "กำหนดหน่วยงานย่อย",
-                                    input: "select",
-                                    inputOptions: subcategories.reduce((options, subcategory) => {
-                                        options[subcategory.id] = subcategory.name;
-                                        return options;
-                                    }, { "": "โปรดเลือกหน่วยงานย่อย" }),
-                                    inputPlaceholder: "เลือกหน่วยงานย่อย",
+                                // Load subdata and show confirmation dialog
+                                const subdatas = await loadSubdatas(category, subcategory);
+                                const subdata = subdatas[0]; // Assuming you want the first subdata item
+                                //  console.log(subdatas[0]);
+                                const { isConfirmed } = await Swal.fire({
+                                    title: "กำหนดหน่วยงานให้ : " + selectData.pname + selectData.fname + " " + selectData.lname,
+                                    html: `สังกัด : ${subdata.maincode}  ${category} <br>  หน่วยงาน/กลุ่มงาน : ${subdata.subcode}  ${subcategory} <br> อำเภอ : ${subdata.amphor} <br>`,
+                                    icon: 'warning',
                                     showCancelButton: true,
-                                    inputValidator: (value) => {
-                                        if (!value) {
-                                            return 'โปรดเลือกหน่วยงานย่อย';
-                                        }
-                                    }
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'บันทึก',
+                                    cancelButtonText: 'ยกเลิก'
                                 });
 
-                                if (subcategory) {
+                                if (isConfirmed) {
                                     Swal.fire({
-                                        title: "กำลังโหลดข้อมูล!",
+                                        title: "กำลังบันทึกข้อมูล!",
+                                        text: "โปรดรอสักครู่",
                                         showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
                                         allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
                                         didOpen: () => {
                                             Swal.showLoading(); // แสดงตัวโหลด
                                         }
                                     });
+                                    try {
+                                        // Send data to Google Apps Script Web App
+                                        let ggdata = `https://script.google.com/macros/s/AKfycbwt7jh-2c65VgpOGfMsAxajtIHJBifDnXSp5gsLdy-WYBmFKc-FzfxQBdz44o3mUrSL/exec?id=${selectData.id}&category=${category}&subcategory=${subcategory}&maincode=${subdata.maincode}&subcode=${subdata.subcode}&amphor=${subdata.amphor}`;
 
-                                    // Load subdata and show confirmation dialog
-                                    const subdatas = await loadSubdatas(category, subcategory);
-                                    const subdata = subdatas[0]; // Assuming you want the first subdata item
-                                    //  console.log(subdatas[0]);
-                                    const { isConfirmed } = await Swal.fire({
-                                        title: "กำหนดหน่วยงานให้ : " + selectData.pname + selectData.fname + " " + selectData.lname,
-                                        html: `สังกัด : ${subdata.maincode}  ${category} <br>  หน่วยงาน/กลุ่มงาน : ${subdata.subcode}  ${subcategory} <br> อำเภอ : ${subdata.amphor} <br>`,
-                                        icon: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#3085d6',
-                                        cancelButtonColor: '#d33',
-                                        confirmButtonText: 'บันทึก',
-                                        cancelButtonText: 'ยกเลิก'
-                                    });
+                                        let response = await fetch(ggdata);
+                                        let data = await response.json();
 
-                                    if (isConfirmed) {
-                                        Swal.fire({
-                                            title: "กำลังบันทึกข้อมูล!",
-                                            text: "โปรดรอสักครู่",
-                                            showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
-                                            allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
-                                            didOpen: () => {
-                                                Swal.showLoading(); // แสดงตัวโหลด
-                                            }
-                                        });
-                                        try {
-                                            // Send data to Google Apps Script Web App
-                                            let ggdata = `https://script.google.com/macros/s/AKfycbwt7jh-2c65VgpOGfMsAxajtIHJBifDnXSp5gsLdy-WYBmFKc-FzfxQBdz44o3mUrSL/exec?id=${selectData.id}&category=${category}&subcategory=${subcategory}&maincode=${subdata.maincode}&subcode=${subdata.subcode}&amphor=${subdata.amphor}`;
+                                        if (data.status === 'success') {
+                                            Swal.fire({
+                                                title: 'บันทึกสำเร็จ',
+                                                text: 'ข้อมูลของคุณได้ถูกบันทึกแล้ว',
+                                                icon: 'success',
+                                                confirmButtonText: 'ตกลง'
+                                            }).then(() => {
+                                                // Update DataTable with new data
+                                                var table = $('#userTable').DataTable();
+                                                var selectedRowIndex = table.row({ selected: true }).index();
 
-                                            let response = await fetch(ggdata);
-                                            let data = await response.json();
+                                                // Assuming `updatedData` is the updated row data you want to set
+                                                var updatedData = {
+                                                    ...selectData,
+                                                    main: category,
+                                                    sub: subcategory
+                                                };
 
-                                            if (data.status === 'success') {
-                                                Swal.fire({
-                                                    title: 'บันทึกสำเร็จ',
-                                                    text: 'ข้อมูลของคุณได้ถูกบันทึกแล้ว',
-                                                    icon: 'success',
-                                                    confirmButtonText: 'ตกลง'
-                                                }).then(() => {
-                                                    // Update DataTable with new data
-                                                    var table = $('#userTable').DataTable();
-                                                    var selectedRowIndex = table.row({ selected: true }).index();
-
-                                                    // Assuming `updatedData` is the updated row data you want to set
-                                                    var updatedData = {
-                                                        ...selectData,
-                                                        main: category,
-                                                        sub: subcategory
-                                                    };
-
-                                                    table.row(selectedRowIndex).data(updatedData).draw(false);
-                                                });
-                                            } else {
-                                                Swal.fire({
-                                                    title: 'เกิดข้อผิดพลาด',
-                                                    text: 'ไม่สามารถบันทึกข้อมูลได้: ' + data.message,
-                                                    icon: 'error',
-                                                    confirmButtonText: 'ตกลง'
-                                                });
-                                            }
-                                        } catch (error) {
-                                            console.error('Error:', error);
+                                                table.row(selectedRowIndex).data(updatedData).draw(false);
+                                            });
+                                        } else {
                                             Swal.fire({
                                                 title: 'เกิดข้อผิดพลาด',
-                                                text: 'ไม่สามารถบันทึกข้อมูลได้',
+                                                text: 'ไม่สามารถบันทึกข้อมูลได้: ' + data.message,
                                                 icon: 'error',
                                                 confirmButtonText: 'ตกลง'
                                             });
                                         }
-                                    } else {
-                                        console.log('Action cancelled');
+                                    } catch (error) {
+                                        console.error('Error:', error);
                                         Swal.fire({
-                                            title: 'การบันทึกถูกยกเลิก',
-                                            text: 'ข้อมูลของคุณยังไม่ถูกเปลี่ยนแปลง',
-                                            icon: 'info',
+                                            title: 'เกิดข้อผิดพลาด',
+                                            text: 'ไม่สามารถบันทึกข้อมูลได้',
+                                            icon: 'error',
                                             confirmButtonText: 'ตกลง'
                                         });
                                     }
+                                } else {
+                                    console.log('Action cancelled');
+                                    Swal.fire({
+                                        title: 'การบันทึกถูกยกเลิก',
+                                        text: 'ข้อมูลของคุณยังไม่ถูกเปลี่ยนแปลง',
+                                        icon: 'info',
+                                        confirmButtonText: 'ตกลง'
+                                    });
                                 }
                             }
-                        } else {
-                            // Show error message if no row is selected
-                            Swal.fire({
-                                icon: "error",
-                                title: "Oops...No row selected!",
-                                text: "โปรดเลือกรายการที่ต้องการกำหนด/แก้ไขหน่วยงาน"
-                            });
                         }
+                    } else {
+                        // Show error message if no row is selected
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...No row selected!",
+                            text: "โปรดเลือกรายการที่ต้องการกำหนด/แก้ไขหน่วยงาน"
+                        });
                     }
                 }
-                ,
-                // เพิ่มผลงาน
-                {
-                    text: 'เพิ่ม ผลงาน/วิจัย/นวัตกรรม',
-                    action: async function () {
-                        // Get selected rows from the 'userdata' DataTable
-                        var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
+            }
+            ,
+            // เพิ่มผลงาน
+            {
+                text: 'เพิ่ม ผลงาน/วิจัย/นวัตกรรม',
+                action: async function () {
+                    // Get selected rows from the 'userdata' DataTable
+                    var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
 
-                        if (selectedRows.length > 0) {
-                            var selectData = selectedRows[0];
-                            // Show SweetAlert2 modal for role selection
-                            const { value: formValues } = await Swal.fire({
-                                title: "กรอกข้อมูล",
-                                showCancelButton: true,
-                                html:
-                                    `<input id="date" type="date" class="swal2-input" placeholder="วันที่">
+                    if (selectedRows.length > 0) {
+                        var selectData = selectedRows[0];
+                        // Show SweetAlert2 modal for role selection
+                        const { value: formValues } = await Swal.fire({
+                            title: "กรอกข้อมูล",
+                            showCancelButton: true,
+                            html:
+                                `<input id="date" type="date" class="swal2-input" placeholder="วันที่">
                     <select id="work" class="swal2-select" placeholder="ผลงาน">
                         <option value="">เลือกผลงาน</option>
                         <option value="ผลงานวิจัย">ผลงานวิจัย</option>
@@ -480,401 +489,393 @@ async function checkLocalStorage() {
                    
                     <textarea id="work2" class="swal2-textarea" placeholder="ชื่อผลงาน"></textarea>
                     <textarea id="details" class="swal2-textarea" placeholder="รายละเอียด"></textarea>`,
-                                focusConfirm: false,
-                                preConfirm: () => {
-                                    const date = document.getElementById('date').value;
-                                    const work = document.getElementById('work').value;
-                                    const work2 = document.getElementById('work2').value;
-                                    const details = document.getElementById('details').value;
-                                    if (!date || !work || !work2) {
-                                        Swal.showValidationMessage("โปรดกรอกข้อมูลให้ครบทุกช่อง");
-                                    }
-                                    return { date: date, work: work, work2: work2, details: details };
+                            focusConfirm: false,
+                            preConfirm: () => {
+                                const date = document.getElementById('date').value;
+                                const work = document.getElementById('work').value;
+                                const work2 = document.getElementById('work2').value;
+                                const details = document.getElementById('details').value;
+                                if (!date || !work || !work2) {
+                                    Swal.showValidationMessage("โปรดกรอกข้อมูลให้ครบทุกช่อง");
                                 }
-                            });
+                                return { date: date, work: work, work2: work2, details: details };
+                            }
+                        });
 
-                            // Handle form submission
-                            if (formValues) {
-                                const { date, work, work2, details } = formValues;
+                        // Handle form submission
+                        if (formValues) {
+                            const { date, work, work2, details } = formValues;
 
-                                // Process the data here
-                                var updatedData = {};
-                                updatedData['id'] = selectData.id;
-                                updatedData['pname'] = selectData.pname;
-                                updatedData['fname'] = selectData.fname;
-                                updatedData['lname'] = selectData.lname;
-                                updatedData['mains'] = selectData.main;
-                                updatedData['sub'] = selectData.sub;
-                                updatedData['dates'] = date;
-                                updatedData['work'] = work;
-                                updatedData['work2'] = work2;
-                                updatedData['details'] = details;
+                            // Process the data here
+                            var updatedData = {};
+                            updatedData['id'] = selectData.id;
+                            updatedData['pname'] = selectData.pname;
+                            updatedData['fname'] = selectData.fname;
+                            updatedData['lname'] = selectData.lname;
+                            updatedData['mains'] = selectData.main;
+                            updatedData['sub'] = selectData.sub;
+                            updatedData['dates'] = date;
+                            updatedData['work'] = work;
+                            updatedData['work2'] = work2;
+                            updatedData['details'] = details;
 
-                                // Show confirmation dialog for saving changes
-                                Swal.fire({
-                                    title: "เพิ่มข้อมูลให้ : " + selectData.pname + selectData.fname + " " + selectData.lname,
-                                    text: "คุณต้องการบันทึกข้อมูลหรือไม่?",
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'บันทึก',
-                                    cancelButtonText: 'ยกเลิก'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        // Show loading dialog
-                                        Swal.fire({
-                                            title: "กำลังบันทึกข้อมูล!",
-                                            text: "กรุณารอสักครู่",
-                                            showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
-                                            allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
-                                            didOpen: () => {
-                                                Swal.showLoading(); // แสดงตัวโหลด
-                                            }
-                                        });
-                                        // Send data to Google Apps Script Web App
-                                        let params = new URLSearchParams(updatedData).toString();
-                                        //  console.log(params);
-                                        let ggdata = `https://script.google.com/macros/s/AKfycbzzcQuhUE9HUGbfnsjb1BQsF9iBd2vJWIi0UhZ9ZTyMBo9uUeULrrONK0EB5SLt03gSqg/exec?${params}`;
-                                        fetch(ggdata)
-                                            .then(response => response.json())
-                                            .then(data => {
-                                                if (data.status === 'success') {
-                                                    Swal.fire({
-                                                        title: 'บันทึกสำเร็จ',
-                                                        text: 'ข้อมูลของคุณได้ถูกบันทึกแล้ว',
-                                                        icon: 'success',
-                                                        confirmButtonText: 'ตกลง'
-                                                    }).then(() => {
-                                                        location.reload();
-                                                    });
-                                                } else {
-                                                    Swal.fire({
-                                                        title: 'เกิดข้อผิดพลาด',
-                                                        text: 'ไม่สามารถบันทึกข้อมูลได้: ' + data.message,
-                                                        icon: 'error',
-                                                        confirmButtonText: 'ตกลง'
-                                                    });
-                                                }
-                                            })
-                                            .catch(error => {
-                                                console.error('Error:', error);
+                            // Show confirmation dialog for saving changes
+                            Swal.fire({
+                                title: "เพิ่มข้อมูลให้ : " + selectData.pname + selectData.fname + " " + selectData.lname,
+                                text: "คุณต้องการบันทึกข้อมูลหรือไม่?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'บันทึก',
+                                cancelButtonText: 'ยกเลิก'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Show loading dialog
+                                    Swal.fire({
+                                        title: "กำลังบันทึกข้อมูล!",
+                                        text: "กรุณารอสักครู่",
+                                        showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
+                                        allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
+                                        didOpen: () => {
+                                            Swal.showLoading(); // แสดงตัวโหลด
+                                        }
+                                    });
+                                    // Send data to Google Apps Script Web App
+                                    let params = new URLSearchParams(updatedData).toString();
+                                    //  console.log(params);
+                                    let ggdata = `https://script.google.com/macros/s/AKfycbzzcQuhUE9HUGbfnsjb1BQsF9iBd2vJWIi0UhZ9ZTyMBo9uUeULrrONK0EB5SLt03gSqg/exec?${params}`;
+                                    fetch(ggdata)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.status === 'success') {
+                                                Swal.fire({
+                                                    title: 'บันทึกสำเร็จ',
+                                                    text: 'ข้อมูลของคุณได้ถูกบันทึกแล้ว',
+                                                    icon: 'success',
+                                                    confirmButtonText: 'ตกลง'
+                                                }).then(() => {
+                                                    location.reload();
+                                                });
+                                            } else {
                                                 Swal.fire({
                                                     title: 'เกิดข้อผิดพลาด',
-                                                    text: 'ไม่สามารถบันทึกข้อมูลได้',
+                                                    text: 'ไม่สามารถบันทึกข้อมูลได้: ' + data.message,
                                                     icon: 'error',
                                                     confirmButtonText: 'ตกลง'
                                                 });
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error:', error);
+                                            Swal.fire({
+                                                title: 'เกิดข้อผิดพลาด',
+                                                text: 'ไม่สามารถบันทึกข้อมูลได้',
+                                                icon: 'error',
+                                                confirmButtonText: 'ตกลง'
                                             });
-                                    } else {
-                                        Swal.fire({
-                                            title: 'การบันทึกถูกยกเลิก',
-                                            text: 'ข้อมูลของคุณยังไม่ถูกเปลี่ยนแปลง',
-                                            icon: 'info',
-                                            confirmButtonText: 'ตกลง'
                                         });
-                                    }
-                                });
-                            }
-                        } else {
-                            // Show error message if no row is selected
-                            Swal.fire({
-                                icon: "error",
-                                title: "Oops...No row selected!",
-                                text: "โปรดเลือกรายการที่ต้องการเพิ่มข้อมูล"
+                                } else {
+                                    Swal.fire({
+                                        title: 'การบันทึกถูกยกเลิก',
+                                        text: 'ข้อมูลของคุณยังไม่ถูกเปลี่ยนแปลง',
+                                        icon: 'info',
+                                        confirmButtonText: 'ตกลง'
+                                    });
+                                }
                             });
                         }
+                    } else {
+                        // Show error message if no row is selected
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...No row selected!",
+                            text: "โปรดเลือกรายการที่ต้องการเพิ่มข้อมูล"
+                        });
                     }
                 }
-                ,
-                // ดูข้อมูลผลงาน
-                {
-                    text: 'ดูผลงาน/วิจัย/นวัตกรรม',
-                    action: async function () {
-                        // Get selected rows from the 'userdata' DataTable
-                        var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
+            }
+            ,
+            // ดูข้อมูลผลงาน
+            {
+                text: 'ดูผลงาน/วิจัย/นวัตกรรม',
+                action: async function () {
+                    // Get selected rows from the 'userdata' DataTable
+                    var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
 
-                        if (selectedRows.length > 0) {
-                            var selectData = selectedRows[0];
-                            // Show loading dialog
-                            Swal.fire({
-                                title: "กำลังโหลดข้อมูล!",
-                                text: "กรุณารอสักครู่",
-                                showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
-                                allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
-                                didOpen: () => {
-                                    Swal.showLoading(); // แสดงตัวโหลด
-                                }
-                            });
-                            // Fetch data from server
-                            try {
-                                const response = await fetch(`https://script.google.com/macros/s/AKfycbxjB5Ddcpe0v_UuPDd6gx_gCrZtjm2fHYZ2JbGqPWWrhh-tBze-Mf3Ks5ccYJIcd7VA/exec?id=${selectData.id}`);
-                                if (!response.ok) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'เกิดข้อผิดพลาด',
-                                        text: 'ไม่พบข้อมูล!'
-                                    });
-                                    return; // ออกจากฟังก์ชันหากเกิดข้อผิดพลาด
-                                }
-                                const data = await response.json();
-
-                                // Prepare HTML content to display fetched data
-                                let htmlContent = '<table class="swal2-table">';
-                                data.forEach(item => {
-                                    htmlContent += `<tr><td>วันที่:</td><td>${item.dates}</td></tr>`;
-                                    htmlContent += `<tr><td>หัวข้อ</td><td>${item.titile}</td></tr>`;
-                                    htmlContent += `<tr><td>เรื่อง:</td><td>${item.text}</td></tr>`;
-                                    htmlContent += `<tr><td>รายละเอียด:</td><td>${item.more}</td></tr>`;
-                                    // เพิ่มคอลัมน์เพิ่มเติมถ้าต้องการ
-                                });
-                                htmlContent += '</table>';
-
-                                // Show SweetAlert2 modal with fetched data
-                                await Swal.fire({
-                                    title: 'ผลงาน/นวัตกรรม/วิจัย ของคุณ' + selectData.fname + " " + selectData.lname,
-                                    html: htmlContent,
-                                    // Your Swal.fire configuration options
-                                });
-
-                            } catch (error) {
-                                console.error('Error fetching data:', error);
-                                // Handle error, show error message, etc.
+                    if (selectedRows.length > 0) {
+                        var selectData = selectedRows[0];
+                        // Show loading dialog
+                        Swal.fire({
+                            title: "กำลังโหลดข้อมูล!",
+                            text: "กรุณารอสักครู่",
+                            showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
+                            allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
+                            didOpen: () => {
+                                Swal.showLoading(); // แสดงตัวโหลด
+                            }
+                        });
+                        // Fetch data from server
+                        try {
+                            const response = await fetch(`https://script.google.com/macros/s/AKfycbxjB5Ddcpe0v_UuPDd6gx_gCrZtjm2fHYZ2JbGqPWWrhh-tBze-Mf3Ks5ccYJIcd7VA/exec?id=${selectData.id}`);
+                            if (!response.ok) {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'เกิดข้อผิดพลาด',
-                                    text: 'มีข้อผิดพลาดในการดึงข้อมูล โปรดลองอีกครั้งในภายหลัง'
+                                    text: 'ไม่พบข้อมูล!'
                                 });
+                                return; // ออกจากฟังก์ชันหากเกิดข้อผิดพลาด
                             }
-                        } else {
-                            // Show error message if no row is selected
+                            const data = await response.json();
+
+                            // Prepare HTML content to display fetched data
+                            let htmlContent = '<table class="swal2-table">';
+                            data.forEach(item => {
+                                htmlContent += `<tr><td>วันที่:</td><td>${item.dates}</td></tr>`;
+                                htmlContent += `<tr><td>หัวข้อ</td><td>${item.titile}</td></tr>`;
+                                htmlContent += `<tr><td>เรื่อง:</td><td>${item.text}</td></tr>`;
+                                htmlContent += `<tr><td>รายละเอียด:</td><td>${item.more}</td></tr>`;
+                                // เพิ่มคอลัมน์เพิ่มเติมถ้าต้องการ
+                            });
+                            htmlContent += '</table>';
+
+                            // Show SweetAlert2 modal with fetched data
+                            await Swal.fire({
+                                title: 'ผลงาน/นวัตกรรม/วิจัย ของคุณ' + selectData.fname + " " + selectData.lname,
+                                html: htmlContent,
+                                // Your Swal.fire configuration options
+                            });
+
+                        } catch (error) {
+                            console.error('Error fetching data:', error);
+                            // Handle error, show error message, etc.
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Oops...No row selected!',
-                                text: 'โปรดเลือกรายการที่ต้องการดูข้อมูล'
+                                title: 'เกิดข้อผิดพลาด',
+                                text: 'มีข้อผิดพลาดในการดึงข้อมูล โปรดลองอีกครั้งในภายหลัง'
                             });
                         }
+                    } else {
+                        // Show error message if no row is selected
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...No row selected!',
+                            text: 'โปรดเลือกรายการที่ต้องการดูข้อมูล'
+                        });
                     }
                 }
+            }
 
 
-                ,
-                //สิทธิ์
-                {
-                    text: 'กำหนดสิทธิ์',
-                    action: async function () {
-                        // Get selected rows from the 'userdata' DataTable
-                        var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
+            ,
+            //สิทธิ์
+            {
+                text: 'กำหนดสิทธิ์',
+                action: async function () {
+                    // Get selected rows from the 'userdata' DataTable
+                    var selectedRows = $('#userTable').DataTable().rows({ selected: true }).data();
 
-                        if (selectedRows.length > 0) {
-                            var selectData = selectedRows[0];
-                            // Show SweetAlert2 modal for role selection
+                    if (selectedRows.length > 0) {
+                        var selectData = selectedRows[0];
+                        // Show SweetAlert2 modal for role selection
 
-                            const result = await Swal.fire({
-                                title: "กำหนดสิทธิ์ให้ : " + selectData.pname + selectData.fname + " " + selectData.lname,
-                                input: "select",
-                                inputOptions: {
-                                    'user': 'ดูได้เฉพาะตนเอง',
-                                    'staff': 'ดูได้ภายในหน่วยงาน',
-                                    'admin': 'ดูได้ภายในสังกัด',
-                                    'ceo': 'ดูได้ภายในอำเภอ',
-                                    'dev': 'ดูได้ทั้งหมด'
-                                },
-                                inputPlaceholder: "เลือกสิทธิ์",
-                                inputValue: selectData.role, // Set default value from selectData.role
-                                showCancelButton: true,
-                                preConfirm: (value) => {
-                                    return new Promise((resolve) => {
-                                        Swal.fire({
-                                            title: 'ยืนยันการบันทึก',
-                                            text: "คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่?",
-                                            icon: 'warning',
-                                            showCancelButton: true,
-                                            confirmButtonColor: '#3085d6',
-                                            cancelButtonColor: '#d33',
-                                            confirmButtonText: 'บันทึก',
-                                            cancelButtonText: 'ยกเลิก'
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                // แสดงการโหลด
-                                                Swal.fire({
-                                                    title: "กำลังบันทึกข้อมูล!",
-                                                    text: "กรุณารอสักครู่",
-                                                    showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
-                                                    allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
-                                                    didOpen: () => {
-                                                        Swal.showLoading(); // แสดงตัวโหลด
-                                                    }
-                                                });
-                                                // ส่งข้อมูลไปยัง Google Apps Script Web App
-                                                let ggdata = `https://script.google.com/macros/s/AKfycbwmtgw4_saeyuBY16WF7fyGhZE19E7gRieZpyARhD6sWfF39BdZN93icLAHpdLEoR0I/exec?id=${selectData.id}&role=${value}&userid=${localStorage.getItem("userid")}`;
-                                                fetch(ggdata)
-                                                    .then(response => response.json())
-                                                    .then(data => {
-                                                        if (data.status === 'success') {
-                                                            Swal.fire({
-                                                                title: 'บันทึกสำเร็จ',
-                                                                text: 'ข้อมูลของคุณได้ถูกบันทึกแล้ว',
-                                                                icon: 'success',
-                                                                confirmButtonText: 'ตกลง'
-                                                            }).then(() => {
-                                                                // อัปเดต DataTable ด้วยข้อมูลใหม่
-                                                                var table = $('#userTable').DataTable();
-                                                                var selectedRowIndex = table.row({ selected: true }).index();
+                        const result = await Swal.fire({
+                            title: "กำหนดสิทธิ์ให้ : " + selectData.pname + selectData.fname + " " + selectData.lname,
+                            input: "select",
+                            inputOptions: {
+                                'user': 'ดูได้เฉพาะตนเอง',
+                                'staff': 'ดูได้ภายในหน่วยงาน',
+                                'admin': 'ดูได้ภายในสังกัด',
+                                'ceo': 'ดูได้ภายในอำเภอ',
+                                'dev': 'ดูได้ทั้งหมด'
+                            },
+                            inputPlaceholder: "เลือกสิทธิ์",
+                            inputValue: selectData.role, // Set default value from selectData.role
+                            showCancelButton: true,
+                            preConfirm: (value) => {
+                                return new Promise((resolve) => {
+                                    Swal.fire({
+                                        title: 'ยืนยันการบันทึก',
+                                        text: "คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่?",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'บันทึก',
+                                        cancelButtonText: 'ยกเลิก'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            // แสดงการโหลด
+                                            Swal.fire({
+                                                title: "กำลังบันทึกข้อมูล!",
+                                                text: "กรุณารอสักครู่",
+                                                showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
+                                                allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
+                                                didOpen: () => {
+                                                    Swal.showLoading(); // แสดงตัวโหลด
+                                                }
+                                            });
+                                            // ส่งข้อมูลไปยัง Google Apps Script Web App
+                                            let ggdata = `https://script.google.com/macros/s/AKfycbwmtgw4_saeyuBY16WF7fyGhZE19E7gRieZpyARhD6sWfF39BdZN93icLAHpdLEoR0I/exec?id=${selectData.id}&role=${value}&userid=${localStorage.getItem("userid")}`;
+                                            fetch(ggdata)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.status === 'success') {
+                                                        Swal.fire({
+                                                            title: 'บันทึกสำเร็จ',
+                                                            text: 'ข้อมูลของคุณได้ถูกบันทึกแล้ว',
+                                                            icon: 'success',
+                                                            confirmButtonText: 'ตกลง'
+                                                        }).then(() => {
+                                                            // อัปเดต DataTable ด้วยข้อมูลใหม่
+                                                            var table = $('#userTable').DataTable();
+                                                            var selectedRowIndex = table.row({ selected: true }).index();
 
-                                                                // Assuming `updatedData` is the updated row data you want to set
-                                                                var updatedData = {
-                                                                    ...selectData,
-                                                                    role: value
-                                                                };
+                                                            // Assuming `updatedData` is the updated row data you want to set
+                                                            var updatedData = {
+                                                                ...selectData,
+                                                                role: value
+                                                            };
 
-                                                                table.row(selectedRowIndex).data(updatedData).draw(false);
-                                                            });
-                                                        } else {
-                                                            Swal.fire({
-                                                                title: 'เกิดข้อผิดพลาด',
-                                                                text: 'ไม่สามารถบันทึกข้อมูลได้: ' + data.message,
-                                                                icon: 'error',
-                                                                confirmButtonText: 'ตกลง'
-                                                            });
-                                                        }
-                                                    })
-                                                    .catch(error => {
-                                                        console.error('Error:', error);
+                                                            table.row(selectedRowIndex).data(updatedData).draw(false);
+                                                        });
+                                                    } else {
                                                         Swal.fire({
                                                             title: 'เกิดข้อผิดพลาด',
-                                                            text: 'ไม่สามารถบันทึกข้อมูลได้',
+                                                            text: 'ไม่สามารถบันทึกข้อมูลได้: ' + data.message,
                                                             icon: 'error',
                                                             confirmButtonText: 'ตกลง'
                                                         });
+                                                    }
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                    Swal.fire({
+                                                        title: 'เกิดข้อผิดพลาด',
+                                                        text: 'ไม่สามารถบันทึกข้อมูลได้',
+                                                        icon: 'error',
+                                                        confirmButtonText: 'ตกลง'
                                                     });
-                                            } else {
-                                                Swal.fire({
-                                                    title: 'การบันทึกถูกยกเลิก',
-                                                    text: 'ข้อมูลของคุณยังไม่ถูกเปลี่ยนแปลง',
-                                                    icon: 'info',
-                                                    confirmButtonText: 'ตกลง'
                                                 });
-                                            }
-                                        });
+                                        } else {
+                                            Swal.fire({
+                                                title: 'การบันทึกถูกยกเลิก',
+                                                text: 'ข้อมูลของคุณยังไม่ถูกเปลี่ยนแปลง',
+                                                icon: 'info',
+                                                confirmButtonText: 'ตกลง'
+                                            });
+                                        }
                                     });
-                                }
-                            });
-
-                            // Handle cancel button or dismiss event
-                            if (result.dismiss === Swal.DismissReason.cancel) {
-                                Swal.fire({
-                                    icon: 'info',
-                                    title: 'Cancelled',
-                                    text: 'การกำหนดสิทธิ์ถูกยกเลิก.'
                                 });
                             }
-                        } else {
-                            // Show error message if no row is selected
+                        });
+
+                        // Handle cancel button or dismiss event
+                        if (result.dismiss === Swal.DismissReason.cancel) {
                             Swal.fire({
-                                icon: "error",
-                                title: "Oops...No row selected!",
-                                text: "โปรดเลือกรายการที่ต้องการกำหนด/แก้ไขสิทธิ์"
+                                icon: 'info',
+                                title: 'Cancelled',
+                                text: 'การกำหนดสิทธิ์ถูกยกเลิก.'
                             });
                         }
+                    } else {
+                        // Show error message if no row is selected
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...No row selected!",
+                            text: "โปรดเลือกรายการที่ต้องการกำหนด/แก้ไขสิทธิ์"
+                        });
                     }
                 }
-            ],
-            "pageLength": 100,
-            "language": {
-                "url": 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/th.json'
-            },
-            "select": true
+            }
+        ],
+        "pageLength": 100,
+        "language": {
+            "url": 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/th.json'
+        },
+        "select": true
+    });
+
+    // Save changes handler
+    $('#saveChanges').on('click', function () {
+        var formData = $('#editForm').serializeArray();
+        var updatedData = {};
+        formData.forEach(function (item) {
+            updatedData[item.name] = item.value;
         });
+        // ปิด modal หลังจากบันทึกข้อมูลเรียบร้อยแล้ว
+        $('#editModal').modal('hide');
+        Swal.fire({
+            title: 'ยืนยันการบันทึก',
+            text: "คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'บันทึก',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "กำลังบันทึกข้อมูล!",
+                    text: "กรุณารอสักครู่",
+                    showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
+                    allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
+                    didOpen: () => {
+                        Swal.showLoading(); // แสดงตัวโหลด
+                    }
+                });
+                // ส่งข้อมูลไปยัง Google Apps Script Web App
+                let params = new URLSearchParams(updatedData).toString();
+                let ggdata = `https://script.google.com/macros/s/AKfycby5L_yY7zHt6d0_VjJg5-_E56dp7T7FBmu5jyAArMzj4IoFqYzvrDtFF9jF4oEs4OUv7w/exec?${params}`;
 
-        // Save changes handler
-        $('#saveChanges').on('click', function () {
-            var formData = $('#editForm').serializeArray();
-            var updatedData = {};
-            formData.forEach(function (item) {
-                updatedData[item.name] = item.value;
-            });
-            // ปิด modal หลังจากบันทึกข้อมูลเรียบร้อยแล้ว
-            $('#editModal').modal('hide');
-            Swal.fire({
-                title: 'ยืนยันการบันทึก',
-                text: "คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'บันทึก',
-                cancelButtonText: 'ยกเลิก'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "กำลังบันทึกข้อมูล!",
-                        text: "กรุณารอสักครู่",
-                        showConfirmButton: false, // ไม่แสดงปุ่มยืนยัน
-                        allowOutsideClick: false, // ไม่อนุญาตให้คลิกข้างนอกเพื่อปิด
-                        didOpen: () => {
-                            Swal.showLoading(); // แสดงตัวโหลด
-                        }
-                    });
-                    // ส่งข้อมูลไปยัง Google Apps Script Web App
-                    let params = new URLSearchParams(updatedData).toString();
-                    let ggdata = `https://script.google.com/macros/s/AKfycby5L_yY7zHt6d0_VjJg5-_E56dp7T7FBmu5jyAArMzj4IoFqYzvrDtFF9jF4oEs4OUv7w/exec?${params}`;
+                fetch(ggdata)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            Swal.fire({
+                                title: 'บันทึกสำเร็จ',
+                                text: 'ข้อมูลของคุณได้ถูกบันทึกแล้ว',
+                                icon: 'success',
+                                confirmButtonText: 'ตกลง'
+                            }).then(() => {
 
-                    fetch(ggdata)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                Swal.fire({
-                                    title: 'บันทึกสำเร็จ',
-                                    text: 'ข้อมูลของคุณได้ถูกบันทึกแล้ว',
-                                    icon: 'success',
-                                    confirmButtonText: 'ตกลง'
-                                }).then(() => {
-
-                                    // อัปเดต DataTable ด้วยข้อมูลใหม่
-                                    var table = $('#userTable').DataTable();
-                                    var selectedRowIndex = table.row({ selected: true }).index();
-                                    table.row(selectedRowIndex).data(updatedData).draw(false);
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: 'เกิดข้อผิดพลาด',
-                                    text: 'ไม่สามารถบันทึกข้อมูลได้: ' + data.message,
-                                    icon: 'error',
-                                    confirmButtonText: 'ตกลง'
-                                });
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
+                                // อัปเดต DataTable ด้วยข้อมูลใหม่
+                                var table = $('#userTable').DataTable();
+                                var selectedRowIndex = table.row({ selected: true }).index();
+                                table.row(selectedRowIndex).data(updatedData).draw(false);
+                            });
+                        } else {
                             Swal.fire({
                                 title: 'เกิดข้อผิดพลาด',
-                                text: 'ไม่สามารถบันทึกข้อมูลได้',
+                                text: 'ไม่สามารถบันทึกข้อมูลได้: ' + data.message,
                                 icon: 'error',
                                 confirmButtonText: 'ตกลง'
                             });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            title: 'เกิดข้อผิดพลาด',
+                            text: 'ไม่สามารถบันทึกข้อมูลได้',
+                            icon: 'error',
+                            confirmButtonText: 'ตกลง'
                         });
-                } else {
-                    Swal.fire({
-                        title: 'การบันทึกถูกยกเลิก',
-                        text: 'ข้อมูลของคุณยังไม่ถูกเปลี่ยนแปลง',
-                        icon: 'info',
-                        confirmButtonText: 'ตกลง'
                     });
-                }
-            });
+            } else {
+                Swal.fire({
+                    title: 'การบันทึกถูกยกเลิก',
+                    text: 'ข้อมูลของคุณยังไม่ถูกเปลี่ยนแปลง',
+                    icon: 'info',
+                    confirmButtonText: 'ตกลง'
+                });
+            }
         });
-
-
-
-
-
-
-
-
-        loadAPI()
-    }
+    });
 }
+
+
 
 function loadAPI() {
     // ให้เรียกใช้ API ที่นี่
@@ -1126,4 +1127,16 @@ async function loadSubdatas(category, subcategory) {
 
 
 
+// app.js
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+             //   console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch(error => {
+            //    console.error('Service Worker registration failed:', error);
+            });
+    });
+}
 
