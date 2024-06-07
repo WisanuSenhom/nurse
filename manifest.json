@@ -6,13 +6,13 @@
     "background_color": "#2c314e",
     "theme_color": "#222741",
     "icons": [
-        {
-            "src": "/nurse256.png",
+    {
+            "src": "https://lh5.googleusercontent.com/d/13Tvwx8TYwXdmAN1OkrjHIN1zeEXW3DVQ",
             "sizes": "256x256",
             "type": "image/png"
         },
         {
-            "src": "/nurse512.png",
+            "src": "https://lh5.googleusercontent.com/d/1CtPerT6wN5efW2I7zOPxKhoMLShni4TB",
             "sizes": "512x512",
             "type": "image/png"
         }
