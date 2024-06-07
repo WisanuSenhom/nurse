@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="icon" href="/nurse.png" type="image/png">
     <!-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="style.css">
 
     <!-- jQuery -->
@@ -19,9 +21,8 @@
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"
         integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" crossorigin="anonymous"></script>
 
-
-
     <title>สภาการพยาบาลจังหวัดบึงกาฬ | สสจ.บึงกาฬ</title>
+    <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
@@ -194,7 +195,6 @@
                             <label for="editJob">ตำแหน่ง</label>
                             <!-- <input type="text" class="form-control" id="editJob" name="job"> -->
                             <select class="form-control" id="editJob" name="job">
-                                <option value="พนักงานธุรการ">พนักงานธุรการ</option>
                                 <option value="พยาบาลวิชาชีพ">พยาบาลวิชาชีพ</option>
                                 <option value="พยาบาลวิชาชีพปฏิบัติการ">พยาบาลวิชาชีพปฏิบัติการ</option>
                                 <option value="พยาบาลวิชาชีพชำนาญการ">พยาบาลวิชาชีพชำนาญการ</option>
@@ -285,12 +285,26 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-close" data-dismiss="modal"><i class="fa-solid fa-xmark"></i> ปิด</button>
-                    <button type="button" class="btn btn-save" id="saveChanges"><i class="fa-solid fa-floppy-disk"></i> แก้ไข</button>
+                    <button type="button" class="btn btn-close" data-dismiss="modal"><i class="fa-solid fa-xmark"></i>
+                        ปิด</button>
+                    <button type="button" class="btn btn-save" id="saveChanges"><i class="fa-solid fa-floppy-disk"></i>
+                        แก้ไข</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 สภาการพยาบาลจังหวัดบึงกาฬ : ติดต่อ 0925123838 นางสาวสุนันทา โคตรอาษา</p>
+            <!-- <ul class="socials">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul> -->
+        </div>
+    </footer>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
