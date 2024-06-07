@@ -3,10 +3,10 @@
     "short_name": "พยาบาลบึงกาฬ",
     "start_url": "https://wisanusenhom.github.io/nurse/index.html",
     "display": "standalone",
-    "background_color": "#2c314e",
-    "theme_color": "#222741",
+    "background_color": "#2b2f4b",
+    "theme_color": "#1e2138",
     "icons": [
-    {
+        {
             "src": "https://lh5.googleusercontent.com/d/13Tvwx8TYwXdmAN1OkrjHIN1zeEXW3DVQ",
             "sizes": "256x256",
             "type": "image/png"
