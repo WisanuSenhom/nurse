@@ -1,0 +1,20 @@
+{
+    "name": "สภาการพยาบาลจังหวัดบึงกาฬ",
+    "short_name": "พยาบาลบึงกาฬ",
+    "start_url": "https://wisanusenhom.github.io/nurse/",
+    "display": "standalone",
+    "background_color": "#2c314e",
+    "theme_color": "#222741",
+    "icons": [
+        {
+            "src": "/nurse256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/nurse512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
