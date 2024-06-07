@@ -6,12 +6,7 @@
     "background_color": "#2b2f4b",
     "theme_color": "#1e2138",
     "icons": [
-        {
-            "src": "https://lh5.googleusercontent.com/d/13Tvwx8TYwXdmAN1OkrjHIN1zeEXW3DVQ",
-            "sizes": "256x256",
-            "type": "image/png"
-        },
-        {
+         {
             "src": "https://lh5.googleusercontent.com/d/1CtPerT6wN5efW2I7zOPxKhoMLShni4TB",
             "sizes": "512x512",
             "type": "image/png"
