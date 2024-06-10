@@ -908,26 +908,26 @@ function openWeb() {
 
 // แดชบอร์ด
 function opendash() {
-    Swal.fire({
-        title: 'อยู่ในระหว่างการพัฒนา',
-        text: 'ระบบกำลังอยู่ในระหว่างการพัฒนา',
-        icon: 'info',
-        confirmButtonText: 'ตกลง'
-    });
     // Swal.fire({
-    //     title: 'ยืนยันการดำเนินการ',
-    //     text: 'คลิก "ตกลง" เพื่อเปิดหน้าแสดงข้อมูล',
-    //     icon: 'question',
-    //     showCancelButton: true,
-    //     confirmButtonText: 'ตกลง',
-    //     cancelButtonText: 'ยกเลิก',
-    // }).then((result) => {
-    //     if (result.isConfirmed) {
-    //         window.open('https://lookerstudio.google.com/reporting/59437449-657d-4dbb-9297-a2e63b2204ae', '_blank');
-    //     } else if (result.dismiss === Swal.DismissReason.cancel) {
-    //         Swal.fire('การดำเนินการถูกยกเลิก', '', 'info');
-    //     }
+    //     title: 'อยู่ในระหว่างการพัฒนา',
+    //     text: 'ระบบกำลังอยู่ในระหว่างการพัฒนา',
+    //     icon: 'info',
+    //     confirmButtonText: 'ตกลง'
     // });
+    Swal.fire({
+        title: 'ยืนยันการดำเนินการ',
+        text: 'คลิก "ตกลง" เพื่อเปิดหน้าแสดงข้อมูลการลงทะเบียนรายหน่วยงาน',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'ตกลง',
+        cancelButtonText: 'ยกเลิก',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.open('https://lookerstudio.google.com/s/pcbRNliIIYQ', '_blank');
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire('การดำเนินการถูกยกเลิก', '', 'info');
+        }
+    });
 }
 
 
