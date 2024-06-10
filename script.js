@@ -329,7 +329,7 @@ async function loadTable(userid) {
                             inputPlaceholder: "เลือกหน่วยงานหลัก",
                             showCancelButton: true,
                             inputValidator: (value) => {
-                                if (!value) {
+                                if (!value || value ==='สังกัด') {
                                     return 'โปรดเลือกหน่วยงาน';
                                 }
                             }
