@@ -1242,7 +1242,7 @@ function clearLocal() {
         title: "รีเซ็ตข้อมูลสำเร็จ",
       }).then((result) => {
         if (result.isConfirmed) {
-          location.reload();
+             location.reload();
         }
       });
     } else if (result.isDenied) {
@@ -1252,6 +1252,7 @@ function clearLocal() {
         text: 'ออกจากระบบแล้ว'
       }).then((result) => {
         if (result.isConfirmed) {
+           localStorage.clear();
           window.location.href = 'about:blank';
         }
       });
