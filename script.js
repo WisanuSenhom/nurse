@@ -1213,8 +1213,7 @@ async function getmember(yourid, yourpic) {
         // ตรวจสอบว่าผู้ใช้กดปุ่มตกลงหรือไม่
         if (result.isConfirmed) {
           // กระทำที่ต้องการทำหลังจากกดปุ่มตกลง
-          window.location.href = "index.html";
-          console.log("สำเร็จ");
+          location.reload();
         }
       });
     });
