@@ -1231,6 +1231,8 @@ function clearLocal() {
     showCancelButton: true,
     confirmButtonText: "ตกลง",
     cancelButtonText: "ยกเลิก",
+    showDenyButton: true,
+    denyButtonText: `ลงชื่อออก`
   }).then((result) => {
     if (result.isConfirmed) {
       localStorage.clear();
@@ -1241,6 +1243,16 @@ function clearLocal() {
       }).then((result) => {
         if (result.isConfirmed) {
           location.reload();
+        }
+      });
+    } else if (result.isDenied) {
+      Swal.fire({
+        icon: 'success',
+        title: 'ลงชื่อออกสำเร็จ',
+        text: 'ออกจากระบบแล้ว'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = 'about:blank';
         }
       });
     } else if (result.dismiss === Swal.DismissReason.cancel) {
