@@ -872,7 +872,7 @@ async function loadTable(userid) {
               title: "หากลบข้อมูลแล้วไม่สามารถเรียกคืนข้อมูลได้ ",
               input: "checkbox",
               showCancelButton: true,
-              inputValue: 1,
+              inputValue: 0,
               inputPlaceholder: `ข้าพเจ้า ${localStorage.getItem(
                 "name"
               )} ยอมรับและดำเนินการ ลบข้อมูลของ ${selectData.pname}${
