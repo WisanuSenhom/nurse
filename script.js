@@ -169,6 +169,15 @@ async function checkLocalStorage() {
       formattedDays +
       " วัน";
 
+      document.querySelector("#lastdate").innerText =  "ลงชื่อเข้าใช้งานเมื่อ : " +    localStorage.getItem("lastdate") ;
+
+    // ไม่ให้ User เปลี่ยนสถานะ
+    if (localStorage.getItem("roleuser") !== "dev") {
+      document.querySelector('option[value="Active"]').disabled = true;
+      document.querySelector('option[value="Pending"]').disabled = true;
+      document.querySelector('option[value="Deactive"]').disabled = true;
+    }
+
     loadAPI();
     loadTable(userid);
   }
@@ -184,7 +193,7 @@ async function loadTable(userid) {
   data.user.forEach(function (user) {
     tab += `<tr>
        <td>${user.id}</td>
-       <td>${user.status}</td>
+   
         <td>${user.pname}</td>
         <td>${user.fname}</td>
         <td>${user.lname}</td>
@@ -889,9 +898,7 @@ async function loadTable(userid) {
               const handleCaptchaVerification = async () => {
                 generateCaptcha();
                 const captchaResult = await Swal.fire({
-                  title: `กรอกรหัสยืนยัน ในการลบข้อมูลของ ${selectData.pname}${
-                    selectData.fname
-                  } ${selectData.lname}`,
+                  title: `กรอกรหัสยืนยัน ในการลบข้อมูลของ ${selectData.pname}${selectData.fname} ${selectData.lname}`,
                   showCancelButton: true,
                   confirmButtonText: `ยืนยัน&nbsp;<i class="fa-solid fa-trash"></i>`,
                   html: `<canvas id="captchaPopupCanvas" width="200" height="50"></canvas><br>
@@ -936,7 +943,7 @@ async function loadTable(userid) {
                     }&delbyname=${localStorage.getItem(
                       "name"
                     )}&delbyid=${localStorage.getItem("userid")}`;
-                   // console.log(ggdata);
+                    // console.log(ggdata);
                     fetch(ggdata)
                       .then((response) => response.json())
                       .then((data) => {
@@ -1015,6 +1022,19 @@ async function loadTable(userid) {
       url: "https://cdn.datatables.net/plug-ins/1.13.7/i18n/th.json",
     },
     select: true,
+    createdRow: function (row, data, dataIndex) {
+      // Add the span element with the appropriate CSS class to the 'status' column
+      const statusCell = $("td", row).eq(1); // Assuming 'status' is the 9th column (index 8)
+      const statusClass =
+        data.status === "Deactive"
+          ? "status deactive"
+          : data.status === "Pending"
+          ? "status pending"
+          : data.status === "Active"
+          ? "status completed"
+          : "primary";
+      statusCell.html(`<span class="${statusClass}">${data.status}</span>`);
+    },
   });
 
   // Save changes handler
@@ -1052,7 +1072,7 @@ async function loadTable(userid) {
         let ggdata = `https://script.google.com/macros/s/AKfycbwLPAV3u-nIygZrloMlZMmYVy6OYYJUqWvRs_PxreO-zMvOiYBFi2jTo1V2eTuNLsPJZg/exec?${params}&delbyname=${localStorage.getItem(
           "name"
         )}&delbyid=${localStorage.getItem("userid")}`;
-          fetch(ggdata)
+        fetch(ggdata)
           .then((response) => response.json())
           .then((data) => {
             if (data.status === "success") {
@@ -1188,8 +1208,8 @@ async function getmember(yourid, yourpic) {
       localStorage.setItem("job", user.job);
       localStorage.setItem("mainsub", user.mainsub);
       localStorage.setItem("office", user.office);
-      // localStorage.setItem("oflat", user.oflat);
-      // localStorage.setItem("oflong", user.oflong);
+      localStorage.setItem("roleuser", user.roleuser);
+      localStorage.setItem("lastdate", user.lastdate);
       // localStorage.setItem("db1", user.db1);
       // localStorage.setItem("token", user.token);
       localStorage.setItem("status", user.status);
@@ -1214,6 +1234,7 @@ async function getmember(yourid, yourpic) {
         if (result.isConfirmed) {
           // กระทำที่ต้องการทำหลังจากกดปุ่มตกลง
           location.reload();
+          //console.log("สำเร็จ");
         }
       });
     });
@@ -1231,7 +1252,7 @@ function clearLocal() {
     confirmButtonText: "ตกลง",
     cancelButtonText: "ยกเลิก",
     showDenyButton: true,
-    denyButtonText: `ลงชื่อออก`
+    denyButtonText: `ลงชื่อออก`,
   }).then((result) => {
     if (result.isConfirmed) {
       localStorage.clear();
@@ -1241,18 +1262,17 @@ function clearLocal() {
         title: "รีเซ็ตข้อมูลสำเร็จ",
       }).then((result) => {
         if (result.isConfirmed) {
-             location.reload();
+          location.reload();
         }
       });
     } else if (result.isDenied) {
       Swal.fire({
-        icon: 'success',
-        title: 'ลงชื่อออกสำเร็จ',
-        text: 'ออกจากระบบแล้ว'
+        icon: "success",
+        title: "ลงชื่อออกสำเร็จ",
+        text: "ออกจากระบบแล้ว",
       }).then((result) => {
         if (result.isConfirmed) {
-           localStorage.clear();
-          window.location.href = 'about:blank';
+          window.location.href = "about:blank";
         }
       });
     } else if (result.dismiss === Swal.DismissReason.cancel) {
