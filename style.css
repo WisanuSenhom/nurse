@@ -1,5 +1,20 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;700&display=swap'); */
-@import url(https://fonts.googleapis.com/css?family=Sarabun:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic);
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai+Looped:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@100..900&display=swap');
+
+:root {
+  --light: #f6f6f9;
+  --primary: #1976D2;
+  --light-primary: #CFE8FF;
+  --grey: #eee;
+  --dark-grey: #AAAAAA;
+  --dark: #363949;
+  --danger: #D32F2F;
+  --light-danger: #FECDD3;
+  --warning: #FBC02D;
+  --light-warning: #FFF2C6;
+  --success: #388E3C;
+  --light-success: #BBF7D0;
+}
 
 html {
   scroll-behavior: smooth;
@@ -9,7 +24,8 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
+  font-family: "Noto Serif Thai", serif;
+  
 }
 
 body {
@@ -43,7 +59,7 @@ header .info-text {
 header .info-text h1 {
   font-size: 5rem;
   font-weight: 500;
-  font-family: "Sarabun";
+  font-family: "Noto Serif Thai", serif;
   animation: fadeIn 10s ease-in-out infinite alternate; /* Add animation */
 }
 
@@ -60,7 +76,7 @@ header .info-text h1 {
 header .info-text h3 {
   color: rgb(231, 230, 230);
   font-size: 1.5rem;
-  font-family: "Sarabun";  
+  font-family: "Noto Serif Thai", serif;
 }
 
 header .info-text .scroll {
@@ -179,13 +195,20 @@ header .info-text .scroll::before {
   color: #fff;
   font-size: 1.7rem;
   font-weight: bold;
-  font-family: "Sarabun";
+  font-family: "Noto Serif Thai", serif;
 }
 
 #about .card .info p,
 #features .card .info p {
   color: #ccc;
   font-size: 1.1rem;
+  line-height: 1.8rem;
+}
+
+#about .card .info h6,
+#features .card .info h6 {
+  color: #ccc;
+  font-size: .6rem;
   line-height: 1.8rem;
 }
 
@@ -284,30 +307,37 @@ th {
 
 thead th {
   background-color: #2c314e;
-  color: white; /* ตัวหนังสือสีขาว */
+  color:  rgba(255, 255, 255, 0.925); /* ตัวหนังสือสีขาว */
 }
 
 
 #userTable {
-  color: white;
+  color: rgba(255, 255, 255, 0.925);
  }
-#userTable th, #userTable td {
-  color: white; /* Text color for table header and cells */
+#userTable th{
+  color:  rgba(255, 255, 255, 0.925); /* Text color for table header and cells */
+  font-size: 10pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
+  text-align: center;
+}
+
+ #userTable td {
+  color:  rgba(255, 255, 255, 0.925); /* Text color for table header and cells */
   font-size: 10pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
 }
+
 #userTable_filter label,
 #userTable_length label,
 #userTable_buttons label,
 #userTable_info,
 #userTable_paginate {
-  color: white; /* Text color for DataTable controls */
+  color:  rgba(255, 255, 255, 0.925); /* Text color for DataTable controls */
 }
 
 
 #userTable tbody,
 #userTable tbody tr,
 #userTable tbody tr td {
-  color: white;
+  color: rgba(255, 255, 255, 0.925);
   border: 1px solid rgb(84, 102, 119);
 }
 
@@ -329,19 +359,32 @@ thead th {
 }
 
 
-
-
-
+/* ปุ่มจัดการข้อมูลในตาราง */
 .dt-button {
-  color: white !important;
+  color: rgba(255, 255, 255, 0.925) !important;
   background-color: transparent !important; /* คุณสามารถเปลี่ยนสีพื้นหลังได้ตามต้องการ */
+  border: 1px solid rgba(255, 255, 255, 0.925); /* เพิ่มเส้นขอบเพื่อให้ปุ่มชัดเจนขึ้น */
+  padding: 8px 16px; /* ปรับระยะห่างในปุ่ม */
+  border-radius: 4px; /* เพิ่มความโค้งมนให้กับปุ่ม */
+  transition: background-color 0.3s, color 0.3s; /* เพิ่มการเปลี่ยนแปลงอย่างนุ่มนวลเมื่อโฮเวอร์ */
+}
+
+/* การเปลี่ยนแปลงเมื่อโฮเวอร์ */
+.dt-button:hover {
+  background-color: rgba(18, 18, 24, 0.411) !important; /* เปลี่ยนสีพื้นหลังเมื่อโฮเวอร์ */
+  color: rgba(255, 255, 255, 0.733) !important; /* เปลี่ยนสีข้อความเมื่อโฮเวอร์ */
+}
+
+/* การเปลี่ยนแปลงเมื่อกดคลิก */
+.dt-button:active {
+  background-color: rgba(255, 255, 255, 0.2) !important; /* เปลี่ยนสีพื้นหลังเมื่อคลิก */
 }
 
 
 
 .dataTables_length select {
   background-color: #30427e !important; /* เปลี่ยนสีพื้นหลังของ select ภายใน lengthMenu เป็นสีเทา */
-  color: white !important; /* คุณสามารถเปลี่ยนสีตัวหนังสือของ select ภายใน lengthMenu ได้ตามต้องการ */
+  color: rgba(255, 255, 255, 0.925) !important; /* คุณสามารถเปลี่ยนสีตัวหนังสือของ select ภายใน lengthMenu ได้ตามต้องการ */
 }
 
 
@@ -361,7 +404,7 @@ thead th {
   margin: 2.5% auto;
   width: 50%;
   font-size: 14pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
-  font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
+  font-family: "Noto Serif Thai", serif;
 }
 
 .modal-content {
@@ -377,7 +420,7 @@ thead th {
   border-top-right-radius: 10px;
   line-height: 3;
   font-size: 14pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
-  font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
+  font-family: "Noto Serif Thai", serif;
   text-align: center;
 }
 
@@ -386,7 +429,7 @@ thead th {
   padding: 20px;
   line-height: 1.5;
   font-size: 10pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
-  font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
+  font-family: "Noto Serif Thai", serif;
 }
 
 .modal-footer {
@@ -396,7 +439,7 @@ thead th {
   text-align: center;
   line-height: 3;
   font-size: 12pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
-  font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
+  font-family: "Noto Serif Thai", serif;
 }
 
 .btn-secondary,
@@ -413,7 +456,7 @@ thead th {
   overflow-y: auto;
   width: 100%;
   font-size: 12pt; /* เพิ่มขนาดฟอนต์เป็น 14 pt */
-  font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
+  font-family: "Noto Serif Thai", serif;
 }
 
 /* Scrollbar */
@@ -439,7 +482,7 @@ thead th {
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 14px;
-  font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
+  font-family: "Noto Serif Thai", serif;
 }
 
 .btn-close:hover {
@@ -455,7 +498,7 @@ thead th {
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 14px;
-  font-family: 'Sarabun', sans-serif; /* เพิ่มฟอนต์ Sarabun */
+  font-family: "Noto Serif Thai", serif;
 }
 
 .btn-save:hover {
@@ -484,3 +527,26 @@ footer {
   margin: 0;
 }
 
+
+/* ปุ่มสถานะในตาราง */
+
+.status{
+  font-size: 12px;
+  padding: 1px 14px;
+  color: var(--light);
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+
+.status.completed{
+  background: var(--success);
+}
+
+.status.pending{
+  background: var(--warning);
+}
+
+.status.deactive{
+  background: var(--danger);
+}
