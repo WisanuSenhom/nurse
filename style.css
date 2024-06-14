@@ -60,21 +60,21 @@ header .info-text h1 {
   font-size: 5rem;
   font-weight: 500;
   font-family: "Noto Serif Thai", serif;
-  animation: fadeIn 10s ease-in-out infinite alternate; /* Add animation */
+  animation: fadeIn 2s ease-in-out infinite alternate; /* Add animation */
 }
 
 @keyframes fadeIn {
   0% {
-    color: rgb(229, 243, 252);
+    color: #CCC;
   }
   100% {
-    color: white;
+    color: #FFF;
   }
 }
 
 
 header .info-text h3 {
-  color: rgb(231, 230, 230);
+  color: #ccc;
   font-size: 1.5rem;
   font-family: "Noto Serif Thai", serif;
 }
@@ -537,7 +537,6 @@ footer {
   border-radius: 20px;
   font-weight: 700;
 }
-
 
 .status.completed{
   background: var(--success);
