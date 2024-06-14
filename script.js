@@ -1266,6 +1266,7 @@ function clearLocal() {
         }
       });
     } else if (result.isDenied) {
+      localStorage.clear();
       Swal.fire({
         icon: "success",
         title: "ลงชื่อออกสำเร็จ",
