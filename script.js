@@ -112,8 +112,21 @@ function calculateDaysUntilExpiry(expiryDate) {
 
 window.onload = function () {
   // เมื่อหน้าเว็บโหลดเสร็จสมบูรณ์
-  checkLocalStorage();
+  checkusertimer();
 };
+
+function checkusertimer() {
+  const lastdate = localStorage.getItem("lastdate");
+    // Example usage
+  const days = calculateDaysUntilExpiry(lastdate);
+  // Format the number with commas
+  const itimer = days.toLocaleString();
+
+  if(itimer <= -4 || !lastdate){
+    localStorage.setItem("docno1", "");
+  }
+  checkLocalStorage();
+}
 
 async function checkLocalStorage() {
   // ตรวจสอบค่า uuid ใน local storage
@@ -169,10 +182,11 @@ async function checkLocalStorage() {
       formattedDays +
       " วัน";
 
-      document.querySelector("#lastdate").innerText =  "ลงชื่อเข้าใช้งานเมื่อ : " +    localStorage.getItem("lastdate") ;
+    document.querySelector("#lastdate").innerText =
+      "ลงชื่อเข้าใช้งานเมื่อ : " + localStorage.getItem("lastdate");
 
     // ไม่ให้ User เปลี่ยนสถานะ
-    if (localStorage.getItem("roleuser") !== "dev") {
+    if (localStorage.getItem("roleuser") === "user") {
       document.querySelector('option[value="Active"]').disabled = true;
       document.querySelector('option[value="Pending"]').disabled = true;
       document.querySelector('option[value="Deactive"]').disabled = true;
