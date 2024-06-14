@@ -8,28 +8,29 @@
     <link rel="manifest" href="/nurse/manifest.json">
 
     <link rel="apple-touch-icon" sizes="256x256"
-      href="https://lh5.googleusercontent.com/d/13Tvwx8TYwXdmAN1OkrjHIN1zeEXW3DVQ">
+        href="https://lh5.googleusercontent.com/d/13Tvwx8TYwXdmAN1OkrjHIN1zeEXW3DVQ">
     <link rel="shortcut icon" href="https://lh5.googleusercontent.com/d/13Tvwx8TYwXdmAN1OkrjHIN1zeEXW3DVQ">
     <!-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <!-- https://lh5.googleusercontent.com/d/ -->
+    <!-- https://lh5.googleusercontent.com/d/ -->
 
     <link rel="stylesheet" href="style.css">
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- jQuery UI -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/ui-darkness/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"
-        integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.3/jquery-ui.min.js" integrity="sha512-Ww1y9OuQ2kehgVWSD/3nhgfrb424O3802QYP/A5gPXoM4+rRjiKrjHdGxQKrMGQykmsJ/86oGdHszfcVgUr4hA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.3/themes/base/theme.min.css" integrity="sha512-XutDejX3PkIxnMh/xEu11qZ9+jn3lh+SrEnbtXny8dhr7Jk+lBkr2ujwco0Bx4LJ500XibluwyXc0kOJ+oY51Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   -->
 
     <title>สภาการพยาบาลจังหวัดบึงกาฬ | สสจ.บึงกาฬ</title>
-  
+
 </head>
 
 <body>
@@ -222,20 +223,20 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <!-- <label for="editMain">Main</label> -->
-                            <input type="text" class="form-control" id="editMain" name="main" readonly hidden>
+                            <label for="editMain">สังกัด (แก้ไขที่ปุ่ม แก้ไขหน่วยงาน)</label>
+                            <input type="text" class="form-control" id="editMain" name="main" readonly>
                         </div>
                         <div class="form-group">
-                            <!-- <label for="editSub">Sub</label> -->
-                            <input type="text" class="form-control" id="editSub" name="sub" readonly hidden>
+                            <label for="editSub">กลุ่มงาน/หน่วยงาน (แก้ไขที่ปุ่ม แก้ไขหน่วยงาน)</label>
+                            <input type="text" class="form-control" id="editSub" name="sub" readonly>
                         </div>
                         <div class="form-group">
                             <label for="editDocno1">เลขที่ใบอนุญาตประกอบวิชาชีพ</label>
-                            <input type="text" class="form-control" id="editDocno1" name="docno1">
+                            <input type="number" class="form-control" id="editDocno1" name="docno1">
                         </div>
                         <div class="form-group">
                             <label for="editDocno2">เลขที่สมาชิกสภาการพยาบาล</label>
-                            <input type="text" class="form-control" id="editDocno2" name="docno2">
+                            <input type="number" class="form-control" id="editDocno2" name="docno2">
                         </div>
                         <div class="form-group">
                             <label for="editDocdate1">วันหมดอายุใบประกอบวิชาชีพ</label>
@@ -263,7 +264,7 @@
                         </div>
                         <div class="form-group">
                             <label for="editTel">เบอร์โทร</label>
-                            <input type="text" class="form-control" id="editTel" name="tel">
+                            <input type="tel" class="form-control" id="editTel" name="tel">
                         </div>
                         <div class="form-group">
                             <label for="editMail">อีเมล์</label>
@@ -326,12 +327,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.min.js"></script>
 
-    <!-- Datatable 5 
- <link rel="stylesheet" href="" />
-<script type="text/javascript" src=""></script>
-<script type="text/javascript" src=""></script>
- -->
-
     <!-- Boostrap & fontawesome js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -366,9 +361,9 @@
 
 
     <!-- Datatable ColReorder  -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.7.0/css/colReorder.dataTables.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.7.0/css/colReorder.dataTables.min.css" />
     <script type="text/javascript"
-        src="https://cdn.datatables.net/colreorder/1.7.0/js/dataTables.colReorder.min.js"></script>
+        src="https://cdn.datatables.net/colreorder/1.7.0/js/dataTables.colReorder.min.js"></script> -->
 
     <!-- Datatable แสดงผลตามขนาดหน้าจอ ปุ่มซ่อน -->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" />
@@ -384,6 +379,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
+    <!-- line -->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
 
