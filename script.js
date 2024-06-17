@@ -1269,7 +1269,7 @@ function clearLocal() {
     denyButtonText: `ลงชื่อออก`,
   }).then((result) => {
     if (result.isConfirmed) {
-      localStorage.clear();
+      localStorage.setItem("docno1", "");
       Swal.fire({
         confirmButtonColor: "#0ef",
         icon: "success",
@@ -1280,7 +1280,7 @@ function clearLocal() {
         }
       });
     } else if (result.isDenied) {
-      localStorage.clear();
+      localStorage.setItem("docno1", "");
       Swal.fire({
         icon: "success",
         title: "ลงชื่อออกสำเร็จ",
