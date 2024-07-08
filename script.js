@@ -122,7 +122,7 @@ function checkusertimer() {
   // Format the number with commas
   const itimer = days.toLocaleString();
 
-  if(itimer <= -4 || !lastdate){
+  if(itimer <= -30 || !lastdate){
     localStorage.setItem("docno1", "");
   }
   checkLocalStorage();
